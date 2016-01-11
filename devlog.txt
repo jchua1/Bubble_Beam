@@ -1,2 +1,3 @@
 01/11
-Jason Chua/Ricky Wu - Uploaded version 1 of readme.txt and devlog.txt
+Jason Chua/Ricky Wu - Uploaded version 1 of readme.txt, devlog, and started
+      		      Pokemon.java
