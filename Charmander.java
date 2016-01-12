@@ -1,5 +1,6 @@
 public class Charmander extends Pokemon {
-    public void Pokemon(){
+
+    public Charmander(){
 	hp = 100;
 	atk = 30;
 	spatk = 30;
@@ -14,8 +15,15 @@ public class Charmander extends Pokemon {
 	allMoves = new String[] {"Growl","Scratch","Ember","Smokescreen","Dragon Rage","Scary Face","Fire Fang","Slash","Flamethrower"};
     }
 
-    public void Pokemon(int level){
+    public Charmander(int level){
+	this();
 	lvl = level;
+	if (level >= 36) {
+	    name = "Charizard";
+	}
+	else if (level >= 16) {
+	    name = "Charmeleon";
+	}
     }
 
     public void moves(int pick, Pokemon enemy){
@@ -36,6 +44,12 @@ public class Charmander extends Pokemon {
 	    spatk = 0;
 	    enemy.setAccuracy(enemy.getAccuracy() - 10.0);
 	}
+    }
+
+    public static void main(String[] args) {
+	Pokemon x = new Charmander(36);
+	System.out.println(x.getName());
+	System.out.println(x.getHp());
     }
 }
 

@@ -1,14 +1,15 @@
 public abstract class Pokemon {
     
-    protected double hp, atk, spatk, def, spdef, spd, acc, lvl, xp;
+    protected double hp, atk, spatk, def, spdef, spd, acc;
+    protected int lvl, xp;
     protected String element, name;
     protected String[] moveSet, allMoves;
 
-    public abstract void Pokemon();
-
-    public abstract void Pokemon(int level);
-
     //~~~~~~~~~~ACCESSOR METHODS~~~~~~~~~~
+    public String getName() {
+	return name;
+    }
+
     public double getAttack() {
 	return atk;
     }  
@@ -42,6 +43,10 @@ public abstract class Pokemon {
 
     public String getElement(){
 	return element;
+    }
+
+    public int getLevel() {
+	return lvl;
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -81,8 +86,12 @@ public abstract class Pokemon {
 	hp -= x;
     }
 
+    public void levelUp(int xpget) {
+	while (xpget >= 0) {
+	    xpget = xpget
+
     public void attack(Pokemon enemy) {
-	if (Math.random()*100 > acc){
+	if (Math.random()*100 < acc){
 	    if (spatk == 0){
 		enemy.lowerHp(atk - enemy.getDefense());
 	    }
@@ -97,10 +106,10 @@ public abstract class Pokemon {
 	    if (ele2.equals("water")){
 		return .5;
 	    }
-	    if (ele2.equals("earth")){
+	    if (ele2.equals("grass")){
 		return 2;
 	    }
 	}
 	return 1;
-    }		    
+    }	    
 }
