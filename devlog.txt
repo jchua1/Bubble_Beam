@@ -7,3 +7,7 @@ Ricky Wu:
 Added code + bug fixes for Pokemon.java
 Added prototype Charmander.java
 
+01/12
+Jason Chua/Ricky Wu:
+Updated Pokemon.java and Charmander.java leveling system and naming system
+
