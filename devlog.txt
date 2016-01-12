@@ -1,3 +1,9 @@
 01/11
-Jason Chua/Ricky Wu - Uploaded version 1 of readme.txt, devlog, and started
-      		      Pokemon.java
+Jason Chua/Ricky Wu:
+Uploaded version 1 of readme.txt, devlog, and started
+Pokemon.java
+
+Ricky Wu:
+Added code + bug fixes for Pokemon.java
+Added prototype Charmander.java
+
