@@ -2,6 +2,7 @@ import cs1.Keyboard;
 
 public abstract class Pokemon {
     
+    protected double _hp, _atk, _spatk, _def , _spdef, _spd, _acc;
     protected double hp, atk, spatk, def, spdef, spd, acc;
     protected int lvl, xp;
     protected String element, name;
