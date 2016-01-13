@@ -136,6 +136,7 @@ public abstract class Pokemon {
 		}
 	    }
         }
+	System.out.println(name + " used " + moveSet[move-1] + "!");
         enemy.lowerHp(damage);
         normalize();
         enemy.normalize();
