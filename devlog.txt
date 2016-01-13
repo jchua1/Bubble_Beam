@@ -10,4 +10,6 @@ Added prototype Charmander.java
 01/12
 Jason Chua/Ricky Wu:
 Updated Pokemon.java and Charmander.java leveling system and naming system
+Added test cases for battle mechanism and created driver file
+Added cs1 directory with Keyboard.java in order to read command line inputs
 
