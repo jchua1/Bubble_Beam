@@ -27,7 +27,7 @@ public class Charmander extends Pokemon {
     }
 
     public void moves(int pick, Pokemon enemy){
-	String move = moveSet[pick];
+	String move = moveSet[pick - 1];
 	if (move.equals("Growl")){
 	    atk = 0;
 	    spatk = 0;
@@ -45,13 +45,25 @@ public class Charmander extends Pokemon {
 	    enemy.setAccuracy(enemy.getAccuracy() - 10.0);
 	}
     }
+    
+    public void normalize(){
+    	atk = 30;
+    	spatk = 30;
+    }
 
     public static void main(String[] args) {
-	Pokemon x = new Charmander(36);
+    	Pokemon x = new Charmander(2);
+    	Pokemon y = new Charmander(5);
 	System.out.println(x.getName());
 	System.out.println(x.getHp());
+    	System.out.println(x.getXp());
+    	System.out.println(x.getLevel());
+    	x.levelUp(15);
+    	System.out.println(x.getLevel());
+    	System.out.println(x.getXp());
+    	x.attack(2,y);
+    	y.attack(3,x);
+    	System.out.println(x.getHp());
+    	System.out.println(y.getHp());
     }
 }
-
-   
-    

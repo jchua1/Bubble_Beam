@@ -1,3 +1,5 @@
+import cs1.Keyboard;
+
 public abstract class Pokemon {
     
     protected double hp, atk, spatk, def, spdef, spd, acc;
@@ -48,7 +50,11 @@ public abstract class Pokemon {
     public int getLevel() {
 	return lvl;
     }
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    
+    public int getXp() {
+        return xp;
+    }
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     //~~~~~~~~~~MUTATOR METHODS~~~~~~~~~~
     public void setAttack(double x) {
@@ -81,25 +87,63 @@ public abstract class Pokemon {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public abstract void moves(int pick, Pokemon ememy);
-
+    
+    public void checkPoint(){
+	System.out.println("Type f");
+        while (!(Keyboard.readString().equals("f"))){
+            System.out.println("Please type f");
+	}
+    }
+    
     public void lowerHp(double x) {
 	hp -= x;
     }
 
     public void levelUp(int xpget) {
-	while (xpget >= 0) {
-	    xpget = xpget
-
-    public void attack(Pokemon enemy) {
-	if (Math.random()*100 < acc){
-	    if (spatk == 0){
-		enemy.lowerHp(atk - enemy.getDefense());
-	    }
-	    else if (atk == 0){
-		enemy.lowerHp((spatk - enemy.getSpDefense()) * advantage(element,enemy.getElement()));
-	    }
+        xp += xpget;
+	while (xp >= (lvl*lvl)) {
+	    xp -= (lvl * lvl);
+	    lvl += 1;
 	}
     }
+	
+    public abstract void normalize();
+
+    public double attack(int move, Pokemon enemy) {
+        double damage = 0;
+	if (Math.random()*100 < acc){
+	    moves(move, enemy);
+	    //Buffs and Debuffs
+	    if (spatk == 0 && atk == 0){
+		damage = 0; 
+	    }
+	    //Normal Attacks
+	    else if (spatk == 0){
+		if ((atk - enemy.getDefense()) * advantage(element,enemy.getElement()) < 0) {
+		    damage = 1;
+		}
+		else {
+		    damage = (atk - enemy.getDefense()) * advantage(element,enemy.getElement());
+		}
+	    }
+	    //Special Attacks
+	    else if (atk == 0){
+		if ((spatk - enemy.getSpDefense()) * advantage(element,enemy.getElement()) < 0){
+		    damage = 1;
+		}
+		else {
+		    damage = (spatk - enemy.getSpDefense()) * advantage(element,enemy.getElement());
+		}
+	    }
+        }
+        enemy.lowerHp(damage);
+        normalize();
+        enemy.normalize();
+    	System.out.println(name + " did " + damage + " damage to " + enemy.getName() + "!");
+	checkPoint();
+        return damage;
+    }
+    
 
     public double advantage(String ele1, String ele2){
 	if (ele1.equals("fire")){
