@@ -43,6 +43,8 @@ public class Game {
                 System.out.println("Oh no! Your Charmander fainted! There go your hopes and dreams of becoming a Pokemon master. :(");
             }
             else {
+		x.levelUp(y.getLevel() * (int)(Math.sqrt(y.getLevel())));
+		System.out.println("Charmander earned " + y.getLevel() * (int)(Math.sqrt(y.getLevel())) + " experience!");
                 System.out.println("You defeated the Charmander! Congratulations! Thanks for playing!");
             }
             battle = true;
