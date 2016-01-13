@@ -3,7 +3,7 @@ import cs1.Keyboard;
 public abstract class Pokemon {
     
     protected double _hp, _atk, _spatk, _def , _spdef, _spd, _acc;
-    protected double hp, atk, spatk, def, spdef, spd, acc;
+    protected double hp, atk, spatk, def, spdef, spd, acc, power;
     protected int lvl, xp;
     protected String element, name;
     protected String[] moveSet, allMoves;
@@ -58,8 +58,10 @@ public abstract class Pokemon {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     //~~~~~~~~~~MUTATOR METHODS~~~~~~~~~~
-    public void setAttack(double x) {
+    public double setAttack(double x) {
+	double ret = atk;
 	atk = x;
+	return ret;
     }
 
     public void setSpAttack(double x) {
@@ -105,10 +107,20 @@ public abstract class Pokemon {
 	while (xp >= (lvl*lvl)) {
 	    xp -= (lvl * lvl);
 	    lvl += 1;
+	    System.out.println("Congratulations! " + name " is now level " + lvl + "!");
+	    System.out.println(
 	}
     }
 	
-    public abstract void normalize();
+    public void normalize() {
+	atk = _atk;
+	spatk = _spatk;
+	def = _def;
+	spdef = _spdef;
+	spd = _spd;
+	acc = _acc;
+	power = 0;
+    }
 
     public double attack(int move, Pokemon enemy) {
         double damage = 0;
