@@ -89,12 +89,12 @@ public abstract class Pokemon {
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public abstract void moves(int pick, Pokemon ememy);
+    public abstract void moves(int pick, Pokemon enemy);
     
     public void checkPoint(){
-	System.out.println("Type f");
+	System.out.println("Type f.");
         while (!(Keyboard.readString().equals("f"))){
-            System.out.println("Please type f");
+            System.out.println("Please type f.");
 	}
     }
     
@@ -107,8 +107,7 @@ public abstract class Pokemon {
 	while (xp >= (lvl*lvl)) {
 	    xp -= (lvl * lvl);
 	    lvl += 1;
-	    System.out.println("Congratulations! " + name " is now level " + lvl + "!");
-	    System.out.println(
+	    System.out.println("Congratulations! " + name + " is now level " + lvl + "!");
 	}
     }
 	
@@ -160,14 +159,45 @@ public abstract class Pokemon {
     
 
     public double advantage(String ele1, String ele2){
-	if (ele1.equals("fire")){
-	    if (ele2.equals("water")){
+	if (ele1.equals("normal")) {
+	    if ((ele2.equals("rock"))) {
 		return .5;
 	    }
-	    if (ele2.equals("grass")){
+	    else if ((ele2.equals("ghost"))) {
+		return 0;
+	    }
+	}
+	else if (ele1.equals("fire")){
+	    if ((ele2.equals("fire"))
+		|| (ele2.equals("water"))
+		|| (ele2.equals("rock"))
+		|| (ele2.equals("dragon"))) {
+		return .5;
+	    }
+	    else if ((ele2.equals("grass"))
+		     || (ele2.equals("ice"))
+		     || (ele2.equals("bug"))) {
 		return 2;
 	    }
 	}
+	else if (ele1.equals("water")) {
+	    if ((ele2.equals("water"))
+		|| (ele2.equals("grass"))
+		|| (ele2.equals("dragon"))) {
+		return .5;
+	    }
+	    else if ((ele2.equals("fire"))
+		     || (ele2.equals("ground"))
+		     || (ele2.equals("rock"))) {
+		return 2;
+	    }
+	}		 
 	return 1;
-    }	    
+    }
+
+    public static void main(String[] args) {
+	Pokemon x = new Charmander(3);
+	Pokemon y = new Charmander(3);
+	x.getAttack();
+    }
 }
