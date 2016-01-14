@@ -1,23 +1,16 @@
 public class Squirtle extends Pokemon {
 
     public Squirtle(){
-	hp = 100;
-	atk = 30;
-	spatk = 30;
-	def = 20;
-	spdef = 25;
-	spd = 30;
-	acc = 100;
-	lvl = 1;
-        type = "water";
-	_hp = hp;
-	_atk = atk;
-	_spatk = spatk;
-	_def = def;
-	_spdef = spdef;
-	_spd = spd;
-	_acc = acc;
+        _hp = 44;
+	_atk = 48;
+	_spatk = 50;
+	_def = 65;
+	_spdef = 64;
+	_spd = 43;
+	_acc = 100;
 	_type = "water";
+	type = "water";
+	nurseJoy();
 	name = "Squirtle";
 	moveSet = new String[] {"Tackle","Tail Whip","Water Gun","Bubble"};
 	allMoves = new String[] {};//add moves later
@@ -26,11 +19,25 @@ public class Squirtle extends Pokemon {
     public Squirtle(int level){
 	this();
 	lvl = level;
+	nurseJoy();
 	if (level >= 36) {
 	    name = "Blastoise";
 	}
 	else if (level >= 16) {
 	    name = "Wartortle";
+	}
+    }
+
+    public void name(int level){
+	if (level == 36) {
+	    System.out.println("Your Wartortle has evolved into a Blastoise!");
+	    checkPoint();
+	    name = "Blastoise";
+	}
+	if (level == 16) {
+	    System.out.println("Your Squirtle has evolved into a Wartortle!");
+	    checkPoint();
+	    name = "Wortortle";
 	}
     }
 

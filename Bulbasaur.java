@@ -1,23 +1,16 @@
 public class Bulbasaur extends Pokemon {
 
     public Bulbasaur(){
-	hp = 100;
-	atk = 30;
-	spatk = 30;
-	def = 20;
-	spdef = 25;
-	spd = 30;
-	acc = 100;
-	lvl = 1;
-	type = "grass";
-	_hp = hp;
-	_atk = atk;
-	_spatk = spatk;
-	_def = def;
-	_spdef = spdef;
-	_spd = spd;
-	_acc = acc;
+        _hp = 45;
+	_atk = 49;
+	_spatk = 65;
+	_def = 49;
+	_spdef = 65;
+	_spd = 45;
+	_acc = 100;
 	_type = "grass";
+	type = "grass";
+	nurseJoy();
 	name = "Bulbasaur";
 	moveSet = new String[] {"Tackle","Growl","Vine Whip","Take Down"};
 	allMoves = new String[] {"Tackle","Growl","Vine Whip","Take Down","Razor Leaf","Double-Edge"};//add all moves later
@@ -26,11 +19,25 @@ public class Bulbasaur extends Pokemon {
     public Bulbasaur(int level){
 	this();
 	lvl = level;
+	nurseJoy();
 	if (level >= 32) {
 	    name = "Venusaur";
 	}
 	else if (level >= 16) {
 	    name = "Ivysaur";
+	}
+    }
+
+    public void name(int level){
+	if (level == 36) {
+	    System.out.println("Your Ivysaur has evolved into a Venusaur!");
+	    checkPoint();
+	    name = "Venusaur";
+	}
+	if (level == 16) {
+	    System.out.println("Your Bulbasuar has evolved into a Venusaur!");
+	    checkPoint();
+	    name = "Ivysuar";
 	}
     }
 

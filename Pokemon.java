@@ -88,6 +88,8 @@ public abstract class Pokemon {
     }
 
     public abstract void moves(int pick, Pokemon enemy);
+
+    public abstract void name(int level);
     
     public void checkPoint(){
 	System.out.println("Type f.");
@@ -106,18 +108,33 @@ public abstract class Pokemon {
 	    xp -= (lvl * lvl);
 	    lvl += 1;
 	    System.out.println("Congratulations! " + name + " is now level " + lvl + "!");
+	    name(lvl);
+	    double a = hp; double b = atk; double c = spatk; double d = def; double e = spdef; double f = spd;
+	    nurseJoy();
+	    System.out.println("HP: " + a + " --> " + hp);
+	    System.out.println("Atk: " + b + " --> " + atk);
+	    System.out.println("Special Attack: " + c + " --> " + spatk);
+	    System.out.println("Defense: " + d + " --> " + def);
+	    System.out.println("Special Defense: " + e + " --> " + spdef);
+	    System.out.println("Speed: " + f + " --> " + spd);
+	    checkPoint();	    
 	}
     }
 	
     public void normalize() {
-	atk = _atk;
-	spatk = _spatk;
-	def = _def;
-	spdef = _spdef;
-	spd = _spd;
+	atk = (int)((2 * _atk) * (lvl / 100.0) + 5);
+	spatk = (int)((2 * _spatk) * (lvl / 100.0) + 5);
+	def = (int)((2 * _def) * (lvl / 100.0) + 5);
+	spdef = (int)((2 * _spdef) * (lvl / 100.0) + 5);
+	spd = (int)((2 * _spd) * (lvl / 100.0) + 5);
 	acc = _acc;
 	type = _type;
 	power = 0;
+    }
+
+    public void nurseJoy() {
+	hp = (int)((2 * _hp) * (lvl / 100) + lvl + 10);
+	normalize();
     }
 
     public double attack(int move, Pokemon enemy) {
@@ -352,4 +369,8 @@ public abstract class Pokemon {
 	return 1;
     }
 
+    public static void main(String[] args){
+	Pokemon x = new Charmander(5);
+	x.levelUp(500);
+    }
 }
