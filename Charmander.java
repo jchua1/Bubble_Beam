@@ -9,7 +9,15 @@ public class Charmander extends Pokemon {
 	spd = 30;
 	acc = 100;
 	lvl = 1;
-	element = "fire";
+	type = "fire";
+	_hp = hp;
+	_atk = atk;
+	_spatk = spatk;
+	_def = def;
+	_spdef = spdef;
+	_spd = spd;
+	_acc = acc;
+	_type = "fire";
 	name = "Charmander";
 	moveSet = new String[] {"Growl","Scratch","Ember","Smokescreen"};
 	allMoves = new String[] {"Growl","Scratch","Ember","Smokescreen","Dragon Rage","Scary Face","Fire Fang","Slash","Flamethrower"};
@@ -35,9 +43,11 @@ public class Charmander extends Pokemon {
 	}
 	if (move.equals("Scratch")){
 	    spatk = 0; 
+	    setType("normal");
 	}
 	if (move.equals("Ember")){
 	    atk = 0;
+	    setType("fire");
 	}
 	if (move.equals("Smokescreeen")){
 	    atk = 0;
@@ -45,25 +55,5 @@ public class Charmander extends Pokemon {
 	    enemy.setAccuracy(enemy.getAccuracy() - 10.0);
 	}
     }
-    
-    public void normalize(){
-    	atk = 30;
-    	spatk = 30;
-    }
 
-    public static void main(String[] args) {
-    	Pokemon x = new Charmander(2);
-    	Pokemon y = new Charmander(5);
-	System.out.println(x.getName());
-	System.out.println(x.getHp());
-    	System.out.println(x.getXp());
-    	System.out.println(x.getLevel());
-    	x.levelUp(15);
-    	System.out.println(x.getLevel());
-    	System.out.println(x.getXp());
-    	x.attack(2,y);
-    	y.attack(3,x);
-    	System.out.println(x.getHp());
-    	System.out.println(y.getHp());
-    }
 }

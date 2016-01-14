@@ -5,10 +5,9 @@ public abstract class Pokemon {
     protected double _hp, _atk, _spatk, _def , _spdef, _spd, _acc;
     protected double hp, atk, spatk, def, spdef, spd, acc, power;
     protected int lvl, xp;
-    protected String element, name;
+    protected String type, _type, name;
     protected String[] moveSet, allMoves;
 
-    //~~~~~~~~~~ACCESSOR METHODS~~~~~~~~~~
     public String getName() {
 	return name;
     }
@@ -44,8 +43,8 @@ public abstract class Pokemon {
 	return acc;
     }
 
-    public String getElement(){
-	return element;
+    public String getType(){
+	return type;
     }
 
     public int getLevel() {
@@ -55,13 +54,9 @@ public abstract class Pokemon {
     public int getXp() {
         return xp;
     }
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    //~~~~~~~~~~MUTATOR METHODS~~~~~~~~~~
-    public double setAttack(double x) {
-	double ret = atk;
-	atk = x;
-	return ret;
+    public void setAttack(double x) {
+        atk = x;
     }
 
     public void setSpAttack(double x) {
@@ -87,7 +82,10 @@ public abstract class Pokemon {
     public void setAccuracy(double x){
 	acc = x;
     }
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    public void setType(String x) {
+	type = x;
+    }
 
     public abstract void moves(int pick, Pokemon enemy);
     
@@ -118,6 +116,7 @@ public abstract class Pokemon {
 	spdef = _spdef;
 	spd = _spd;
 	acc = _acc;
+	type = _type;
 	power = 0;
     }
 
@@ -131,20 +130,20 @@ public abstract class Pokemon {
 	    }
 	    //Normal Attacks
 	    else if (spatk == 0){
-		if ((atk - enemy.getDefense()) * advantage(element,enemy.getElement()) < 0) {
+		if ((atk - enemy.getDefense()) * advantage(type,enemy.getType()) < 0) {
 		    damage = 1;
 		}
 		else {
-		    damage = (atk - enemy.getDefense()) * advantage(element,enemy.getElement());
+		    damage = (atk - enemy.getDefense()) * advantage(type,enemy.getType());
 		}
 	    }
 	    //Special Attacks
 	    else if (atk == 0){
-		if ((spatk - enemy.getSpDefense()) * advantage(element,enemy.getElement()) < 0){
+		if ((spatk - enemy.getSpDefense()) * advantage(type,enemy.getType()) < 0){
 		    damage = 1;
 		}
 		else {
-		    damage = (spatk - enemy.getSpDefense()) * advantage(element,enemy.getElement());
+		    damage = (spatk - enemy.getSpDefense()) * advantage(type,enemy.getType());
 		}
 	    }
         }
@@ -159,14 +158,16 @@ public abstract class Pokemon {
     
 
     public double advantage(String ele1, String ele2){
+	//normal type advantages
 	if (ele1.equals("normal")) {
-	    if ((ele2.equals("rock"))) {
-		return .5;
-	    }
-	    else if ((ele2.equals("ghost"))) {
+	    if (ele2.equals("ghost")) {
 		return 0;
 	    }
+	    else if (ele2.equals("rock")) {
+		return .5;
+	    }
 	}
+	//fire type advantages
 	else if (ele1.equals("fire")){
 	    if ((ele2.equals("fire"))
 		|| (ele2.equals("water"))
@@ -180,6 +181,7 @@ public abstract class Pokemon {
 		return 2;
 	    }
 	}
+	//water type advantages
 	else if (ele1.equals("water")) {
 	    if ((ele2.equals("water"))
 		|| (ele2.equals("grass"))
@@ -191,13 +193,163 @@ public abstract class Pokemon {
 		     || (ele2.equals("rock"))) {
 		return 2;
 	    }
-	}		 
+	}
+	//electric type advantages
+	else if (ele1.equals("electric")) {
+	    if (ele2.equals("ground")) {
+		return 0;
+	    }
+	    else if ((ele2.equals("electric"))
+		     || (ele2.equals("grass")) 
+		     || (ele2.equals("dragon"))) {
+		return .5;
+	    }
+	    else if ((ele2.equals("water"))
+		     || (ele2.equals("flying"))) {
+		return 2;
+	    }
+	}
+	//grarss type advantages
+	else if (ele1.equals("grass")) {
+	    if ((ele2.equals("fire"))
+		|| (ele2.equals("grass"))
+		|| (ele2.equals("poison"))
+		|| (ele2.equals("flying"))
+		|| (ele2.equals("bug"))
+		|| (ele2.equals("dragon"))) {
+		return .5;
+	    }
+	    else if ((ele2.equals("water"))
+		     || (ele2.equals("ground"))
+		     || (ele2.equals("rock"))) {
+		return 2;
+	    }
+	}
+	//ice type advantages
+	else if (ele1.equals("ice")) {
+	    if ((ele2.equals("water"))
+		|| (ele2.equals("ice"))) {
+		return .5;
+	    }
+	    else if ((ele2.equals("grass"))
+		     || (ele2.equals("ground"))
+		     || (ele2.equals("flying"))
+		     || (ele2.equals("dragon"))) {
+		return 2;
+	    }
+	}
+	//fighting type advantages
+	else if (ele1.equals("fighting")) {
+	    if (ele2.equals("ghost")) {
+		return 0;
+	    }
+	    else if ((ele2.equals("poison"))
+		     || (ele2.equals("flying"))
+		     || (ele2.equals("psychic")) 
+		     || (ele2.equals("bug"))) {
+		return .5;
+	    }
+	    else if ((ele2.equals("normal"))
+		     || (ele2.equals("ice"))
+		     || (ele2.equals("rock"))) {
+		return 2;
+	    }
+	}
+	//poison type advantages
+	else if (ele1.equals("poison")) {
+	    if ((ele2.equals("poison"))
+		|| (ele2.equals("ground"))
+		|| (ele2.equals("rock"))
+		|| (ele2.equals("ghost"))) {
+		return .5;
+	    }
+	    else if ((ele2.equals("grass"))
+		     || (ele2.equals("bug"))) {
+		return 2;
+	    }
+	}
+	//ground type advantages
+	else if (ele1.equals("ground")) {
+	    if (ele2.equals("flying")) {
+		return 0;
+	    }
+	    else if ((ele2.equals("grass"))
+		     || (ele2.equals("bug"))) {
+		return .5;
+	    }
+	    else if ((ele2.equals("fire"))
+		     || (ele2.equals("electric"))
+		     || (ele2.equals("poison"))
+		     || (ele2.equals("rock"))) {
+		return 2;
+	    }
+	}
+	//flying type advantages
+	else if (ele1.equals("flying")) {
+	    if ((ele2.equals("electric"))
+		|| (ele2.equals("rock"))) {
+		return .5;
+	    }
+	    else if ((ele2.equals("grass"))
+		     || (ele2.equals("fighting"))
+		     || (ele2.equals("bug"))) {
+		return 2;
+	    }
+	}
+	//psychic type advantages
+	else if (ele1.equals("psychic")) {
+	    if (ele2.equals("psychic")) {
+		return .5;
+	    }
+	    else if ((ele2.equals("fighting"))
+		     || (ele2.equals("poison"))) {
+		return 2;
+	    }
+	}
+	//bug type advantages
+	else if (ele1.equals("bug")) {
+	    if ((ele2.equals("fire"))
+		|| (ele2.equals("fighting"))
+		|| (ele2.equals("flying"))) {
+		return .5;
+	    }
+	    else if ((ele2.equals("grass"))
+		     || (ele2.equals("poison"))
+		     || (ele2.equals("psychic"))) {
+		return 2;
+	    }
+	}
+	//rock type advantages
+	else if (ele1.equals("rock")) {
+	    if ((ele2.equals("fighting"))
+		|| (ele2.equals("ground"))) {
+		return .5;
+	    }
+	    else if ((ele2.equals("fire"))
+		     || (ele2.equals("ice"))
+		     || (ele2.equals("flying"))
+		     || (ele2.equals("bug"))) {
+		return 2;
+	    }
+	}
+	//ghost type advantages
+	else if (ele1.equals("ghost")) {
+	    if ((ele2.equals("normal"))
+		|| (ele2.equals("psychic"))) {
+		return 0;
+	    }
+	    else if (ele2.equals("ghost")) {
+		return 2;
+	    }
+	}
+	//dragon type advantages
+	else if (ele1.equals("dragon")) {
+	    if (ele2.equals("dragon")) {
+		return 2;
+	    }
+	}
+	//returns 1 if no type advantage
 	return 1;
     }
 
-    public static void main(String[] args) {
-	Pokemon x = new Charmander(3);
-	Pokemon y = new Charmander(3);
-	x.getAttack();
-    }
 }

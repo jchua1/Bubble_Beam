@@ -9,7 +9,15 @@ public class Squirtle extends Pokemon {
 	spd = 30;
 	acc = 100;
 	lvl = 1;
-	element = "fire";
+        type = "water";
+	_hp = hp;
+	_atk = atk;
+	_spatk = spatk;
+	_def = def;
+	_spdef = spdef;
+	_spd = spd;
+	_acc = acc;
+	_type = "water";
 	name = "Squirtle";
 	moveSet = new String[] {"Tackle","Tail Whip","Water Gun","Bubble"};
 	allMoves = new String[] {};//add moves later
@@ -35,17 +43,16 @@ public class Squirtle extends Pokemon {
 	}
 	if (move.equals("Tackle")){
 	    spatk = 0; 
+	    setType("normal");
 	}
 	if (move.equals("Water Gun")){
 	    atk = 0;
+	    setType("water");
 	}
 	if (move.equals("Bubble")){
 	    atk = 0;
+	    setType("water");
 	}
     }
-    
-    public void normalize(){
-    	atk = 30;
-    	spatk = 30;
-    }
+
 }
