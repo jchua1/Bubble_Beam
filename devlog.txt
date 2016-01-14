@@ -20,3 +20,6 @@ Updated Pokemon.java and added Bulbasaur.java/Squirtle.java
 Jason Chua:
 Finished adding all type advantages and implementation of them in attacks
 
+Ricky Wu:
+Finished implementation of stat increases during leveling
+
