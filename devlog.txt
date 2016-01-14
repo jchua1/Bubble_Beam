@@ -17,3 +17,6 @@ Added cs1 directory with Keyboard.java in order to read command line inputs
 Jason Chua/Ricky Wu:
 Updated Pokemon.java and added Bulbasaur.java/Squirtle.java
 
+Jason Chua:
+Finished adding all type advantages and implementation of them in attacks
+
