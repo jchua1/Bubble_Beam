@@ -1,0 +1,8 @@
+Done:
+-Pokemon:
+ - All stats
+ - Leveling up system
+ - Move type interaction
+ - 
+
+To Do:

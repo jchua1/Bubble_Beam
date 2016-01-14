@@ -22,22 +22,48 @@ public class Charmander extends Pokemon {
 	nurseJoy();
 	if (level >= 36) {
 	    name = "Charizard";
+	    _hp = 78;
+	    _atk = 84;
+	    _spatk = 109;
+	    _def = 78;
+	    _spdef = 85;
+	    _spd = 100;
 	}
 	else if (level >= 16) {
 	    name = "Charmeleon";
+	    _hp = 58;
+	    _atk = 64;
+	    _spatk = 80;
+	    _def = 58;
+	    _spdef = 65;
+	    _spd = 80;
 	}
     }
 
-   public void name(int level){
+    public void name(int level) throws InterruptedException {
 	if (level == 36) {
 	    System.out.println("Your Charmeleon has evolved into a Charizard!");
-	    checkPoint();
+	    System.out.println("---------------------------------------------");
+	    Thread.sleep(1000);	   
 	    name = "Charizard";
+	    _hp = 78;
+	    _atk = 84;
+	    _spatk = 109;
+	    _def = 78;
+	    _spdef = 85;
+	    _spd = 100;
 	}
 	if (level == 16) {
 	    System.out.println("Your Charmander has evolved into a Charmeleon!");
-	    checkPoint();
+	    System.out.println("---------------------------------------------");
+	    Thread.sleep(1000);	   
 	    name = "Charmeleon";
+	    _hp = 58;
+	    _atk = 64;
+	    _spatk = 80;
+	    _def = 58;
+	    _spdef = 65;
+	    _spd = 80;
 	}
     }
 

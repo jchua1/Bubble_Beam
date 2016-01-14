@@ -89,7 +89,7 @@ public abstract class Pokemon {
 
     public abstract void moves(int pick, Pokemon enemy);
 
-    public abstract void name(int level);
+    public abstract void name(int level) throws InterruptedException;
     
     public void checkPoint(){
 	System.out.println("Type f.");
@@ -102,12 +102,15 @@ public abstract class Pokemon {
 	hp -= x;
     }
 
-    public void levelUp(int xpget) {
+    public void levelUp(int xpget)
+	throws InterruptedException {
         xp += xpget;
 	while (xp >= (lvl*lvl)) {
 	    xp -= (lvl * lvl);
 	    lvl += 1;
 	    System.out.println("Congratulations! " + name + " is now level " + lvl + "!");
+	    System.out.println("---------------------------------------------");
+	    Thread.sleep(1000);	   
 	    name(lvl);
 	    double a = hp; double b = atk; double c = spatk; double d = def; double e = spdef; double f = spd;
 	    nurseJoy();
@@ -117,7 +120,8 @@ public abstract class Pokemon {
 	    System.out.println("Defense: " + d + " --> " + def);
 	    System.out.println("Special Defense: " + e + " --> " + spdef);
 	    System.out.println("Speed: " + f + " --> " + spd);
-	    checkPoint();	    
+	    System.out.println("---------------------------------------------");
+	    Thread.sleep(1000);	   
 	}
     }
 	
@@ -133,7 +137,7 @@ public abstract class Pokemon {
     }
 
     public void nurseJoy() {
-	hp = (int)((2 * _hp) * (lvl / 100) + lvl + 10);
+	hp = (int)((2 * _hp) * (lvl / 100.0) + lvl + 10);
 	normalize();
     }
 
@@ -369,8 +373,8 @@ public abstract class Pokemon {
 	return 1;
     }
 
-    public static void main(String[] args){
-	Pokemon x = new Charmander(5);
-	x.levelUp(500);
+    public static void main(String[] args) throws InterruptedException {
+	Pokemon x = new Charmander(14);
+	x.levelUp(100000);
     }
 }
