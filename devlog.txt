@@ -23,3 +23,8 @@ Finished adding all type advantages and implementation of them in attacks
 Ricky Wu:
 Finished implementation of stat increases during leveling
 
+01/14
+Jason Chua/Ricky Wu:
+Implemented way to delay text in terminal
+Created to-do.txt
+
