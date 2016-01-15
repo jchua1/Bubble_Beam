@@ -1,8 +1,28 @@
 Done:
--Pokemon:
+-Pokemon.java:
  - All stats
  - Leveling up system
  - Move type interaction
- - 
+ - Basic battling system
+ - Evolving/Stat change
+
+- Game.java:
+ - Choosing starter Pokemon
+ - Basic gameplay (Battling 1 other Pokemon)
 
 To Do:
+ 1. Battling system intricacies (Buffs/Debuffs/Status effects) - 3 hours
+ 2. Trainer.java creation and basic functionality - 1 hour
+ 3. Catching Pokemon - 1 hour
+ 4. Storing caught Pokemon - 1 hour
+ 5. Writing all Pokemon.java subclasses - 5 hours
+ 6. Finishing missing parts of Trainer.java for use in City.java - 1 hour
+ 7. Creation and completion of City.java - 1 hour
+ 8. Elite Four (Winning the game) - 1 hour
+ 9. Coding the game to implement all classes - 4 hours
+ 10. Saving the game - 1 hour
+ 11. Ascii art for Pokemon battles - 2 hours
+
+OPTIONAL:
+ - Storyline
+ - Side missions
