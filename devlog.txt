@@ -28,3 +28,6 @@ Jason Chua/Ricky Wu:
 Implemented way to delay text in terminal
 Created to-do.txt
 
+01/15
+Jason Chua/Ricky Wu:
+Implemented battle damage formula and double type advantage interaction

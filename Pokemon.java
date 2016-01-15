@@ -5,7 +5,7 @@ public abstract class Pokemon {
     protected double _hp, _atk, _spatk, _def , _spdef, _spd, _acc;
     protected double hp, atk, spatk, def, spdef, spd, acc, power;
     protected int lvl, xp;
-    protected String type, _type, name;
+    protected String type, type2, _type, name;
     protected String[] moveSet, allMoves;
 
     public String getName() {
@@ -45,6 +45,10 @@ public abstract class Pokemon {
 
     public String getType(){
 	return type;
+    }
+
+    public String getType2() {
+	return type2;
     }
 
     public int getLevel() {
@@ -141,40 +145,40 @@ public abstract class Pokemon {
 	normalize();
     }
 
-    public double attack(int move, Pokemon enemy) {
-        double damage = 0;
+    public int attack(int move, Pokemon enemy) {
+	double damage = 0;
+	double defense = 0;
+	double modifier = ((Math.random()*16+85)/100) * advantage(type,enemy.getType());
+	if (!enemy.getType2().equals("")) {
+	    modifier *= advantage(type,enemy.getType2());
+	}
 	if (Math.random()*100 < acc){
 	    moves(move, enemy);
 	    //Buffs and Debuffs
 	    if (spatk == 0 && atk == 0){
 		damage = 0; 
 	    }
-	    //Normal Attacks
-	    else if (spatk == 0){
-		if ((atk - enemy.getDefense()) * advantage(type,enemy.getType()) < 0) {
-		    damage = 1;
+	    //Dmage-dealing Attacks
+	    else {
+		if (spatk == 0){
+		    defense = enemy.getDefense();
 		}
-		else {
-		    damage = (atk - enemy.getDefense()) * advantage(type,enemy.getType());
+		if (atk == 0){ 
+		    defense = enemy.getSpDefense();
 		}
-	    }
-	    //Special Attacks
-	    else if (atk == 0){
-		if ((spatk - enemy.getSpDefense()) * advantage(type,enemy.getType()) < 0){
-		    damage = 1;
+		if (defense == 0) {
+		    defense = 1;
 		}
-		else {
-		    damage = (spatk - enemy.getSpDefense()) * advantage(type,enemy.getType());
-		}
+		damage = (((2 * lvl + 10)/250.0) * ((atk+spatk)/defense) * power + 2) * modifier;
 	    }
         }
 	System.out.println(name + " used " + moveSet[move-1] + "!");
-        enemy.lowerHp(damage);
+        enemy.lowerHp((int)damage);
         normalize();
         enemy.normalize();
-    	System.out.println(name + " did " + damage + " damage to " + enemy.getName() + "!");
+    	System.out.println(name + " did " + (int)damage + " damage to " + enemy.getName() + "!");
 	checkPoint();
-        return damage;
+        return (int)damage;
     }
     
 
@@ -375,6 +379,8 @@ public abstract class Pokemon {
 
     public static void main(String[] args) throws InterruptedException {
 	Pokemon x = new Charmander(14);
-	x.levelUp(100000);
+	//x.levelUp(100000);
+	Pokemon y = new Bulbasaur(14);
+	x.attack(3,y);
     }
 }

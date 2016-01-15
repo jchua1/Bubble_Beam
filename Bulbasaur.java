@@ -10,6 +10,7 @@ public class Bulbasaur extends Pokemon {
 	_acc = 100;
 	_type = "grass";
 	type = "grass";
+	type2 = "ice";
 	nurseJoy();
 	name = "Bulbasaur";
 	moveSet = new String[] {"Tackle","Growl","Vine Whip","Take Down"};
