@@ -35,3 +35,11 @@ Implemented battle damage formula and double type advantage interaction
 01/16
 Ricky Wu:
 Started status effects
+
+01/17
+Ricky Wu:
+Changes (Please Read):
+-instead of setting atk or spatk to 0, the booleans "special" and "normal" will be used to determine which type of attack the Pokemon will use, see attack method
+-normalize has been combined with nursejoy and renamed updateStats
+-new normalize method will only update spd + acc and reset special and normal to false
+-every move now has to: 1) specify special or normal, unless its a buff and 2) specify power

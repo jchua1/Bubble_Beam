@@ -10,7 +10,7 @@ public class Charmander extends Pokemon {
 	_acc = 100;
 	_type = "fire";
 	type = "fire";
-	nurseJoy();
+	updateStats();
 	name = "Charmander";
 	moveSet = new String[] {"Growl","Scratch","Ember","Smokescreen"};
 	allMoves = new String[] {"Growl","Scratch","Ember","Smokescreen","Dragon Rage","Scary Face","Fire Fang","Slash","Flamethrower"};
@@ -19,7 +19,7 @@ public class Charmander extends Pokemon {
     public Charmander(int level){
 	this();
 	lvl = level;
-	nurseJoy();
+	updateStats();
 	if (level >= 36) {
 	    name = "Charizard";
 	    _hp = 78;

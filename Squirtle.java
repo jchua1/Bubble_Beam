@@ -10,7 +10,7 @@ public class Squirtle extends Pokemon {
 	_acc = 100;
 	_type = "water";
 	type = "water";
-	nurseJoy();
+	updateStats();
 	name = "Squirtle";
 	moveSet = new String[] {"Tackle","Tail Whip","Water Gun","Bubble"};
 	allMoves = new String[] {};//add moves later
@@ -19,7 +19,7 @@ public class Squirtle extends Pokemon {
     public Squirtle(int level){
 	this();
 	lvl = level;
-	nurseJoy();
+	updateStats();
 	if (level >= 36) {
 	    name = "Blastoise";
 	}

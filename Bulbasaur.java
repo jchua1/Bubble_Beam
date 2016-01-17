@@ -10,8 +10,7 @@ public class Bulbasaur extends Pokemon {
 	_acc = 100;
 	_type = "grass";
 	type = "grass";
-	type2 = "ice";
-	nurseJoy();
+	updateStats();
 	name = "Bulbasaur";
 	moveSet = new String[] {"Tackle","Growl","Vine Whip","Take Down"};
 	allMoves = new String[] {"Tackle","Growl","Vine Whip","Take Down","Razor Leaf","Double-Edge"};//add all moves later
@@ -20,7 +19,7 @@ public class Bulbasaur extends Pokemon {
     public Bulbasaur(int level){
 	this();
 	lvl = level;
-	nurseJoy();
+	updateStats();
 	if (level >= 32) {
 	    name = "Venusaur";
 	}

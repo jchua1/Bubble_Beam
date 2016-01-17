@@ -9,7 +9,7 @@ public class Game {
 	}
     }
     
-    public void play() {
+    public void play() throws InterruptedException{
         Pokemon x = new Bulbasaur(1);
         boolean battle = false;
         int input = 0;
@@ -61,7 +61,7 @@ public class Game {
         }
     }
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException{
         Game x = new Game();
         x.play();
     }

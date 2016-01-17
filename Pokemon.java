@@ -3,10 +3,11 @@ import cs1.Keyboard;
 public abstract class Pokemon {
     
     protected double _hp, _atk, _spatk, _def , _spdef, _spd, _acc;
-    protected double hp, atk, spatk, def, spdef, spd, acc, power;
-    protected boolean burned, poisoned, paralysis, frozen, sleep, confused, leech, flinch; 
+    protected double hp, atk, spatk, def, spdef, spd, acc, power, maxHp;
+    protected boolean burned, poisoned, paralysis, leech, flinch, normal, special;
+    protected int sleep, toxic, confused;
     protected int lvl, xp;
-    protected String type, type2, _type, name;
+    protected String type, _type2, _type, name;
     protected String[] moveSet, allMoves;
 
     public String getName() {
@@ -40,23 +41,32 @@ public abstract class Pokemon {
 	return spd;
     }
 
-    public double getAccuracy(){
+    public double getAccuracy() {
 	return acc;
     }
 
+    public double getMaxHp() {
+	return maxHp;
+    }
+
     public String getType(){
-	return type;
+	return _type;
     }
 
     public String getType2() {
-	return type2;
+	return _type2;
     }
 
     public String getAttackType(){
-	return _type
+	return type;
+    }
     
     public int getXp() {
         return xp;
+    }
+
+    public int getLevel() {
+	return lvl;
     }
 
     public void setAttack(double x) {
@@ -88,7 +98,7 @@ public abstract class Pokemon {
     }
 
     public void setType(String x) {
-	_type = x;
+	type = x;
     }
 
     public abstract void moves(int pick, Pokemon enemy);
@@ -117,7 +127,7 @@ public abstract class Pokemon {
 	    Thread.sleep(1000);	   
 	    name(lvl);
 	    double a = hp; double b = atk; double c = spatk; double d = def; double e = spdef; double f = spd;
-	    nurseJoy();
+	    updateStats();
 	    System.out.println("HP: " + a + " --> " + hp);
 	    System.out.println("Atk: " + b + " --> " + atk);
 	    System.out.println("Special Attack: " + c + " --> " + spatk);
@@ -128,8 +138,15 @@ public abstract class Pokemon {
 	    Thread.sleep(1000);	   
 	}
     }
-	
+
     public void normalize() {
+        normal = false;
+	special = false;
+	spd = (int)((2 * _spd) * (lvl / 100.0) + 5);
+	acc = 100;
+    }
+	
+    public void updateStats() {
 	atk = (int)((2 * _atk) * (lvl / 100.0) + 5);
 	spatk = (int)((2 * _spatk) * (lvl / 100.0) + 5);
 	def = (int)((2 * _def) * (lvl / 100.0) + 5);
@@ -138,68 +155,102 @@ public abstract class Pokemon {
 	acc = _acc;
 	type = _type;
 	power = 0;
-    }
-
-    public void nurseJoy() {
 	hp = (int)((2 * _hp) * (lvl / 100.0) + lvl + 10);
-	normalize();
+	maxHp = hp;
     }
 
-    public int attack(int move, Pokemon enemy) {
+    public int attack(int move, Pokemon enemy) throws InterruptedException{
 	double damage = 0;
 	double defense = 0;
-	double modifier = ((Math.random()*16+85)/100) * advantage(type,enemy.getType());
+	double attack = 0;
+	double modifier = ((Math.random()*16+85)/100) * advantage(_type,enemy.getType());
 	if (!enemy.getType2().equals("")) {
-	    modifier *= advantage(type,enemy.getType2());
+	    modifier *= advantage(_type,enemy.getType2());
 	}
+	status(enemy);
 	if (Math.random()*100 < acc){
 	    moves(move, enemy);
+	    System.out.println(name + " used " + moveSet[move-1] + "!");
+	    Thread.sleep(1000);
 	    //Buffs and Debuffs
-	    if (spatk == 0 && atk == 0){
+	    if (!normal && !special){
 		damage = 0; 
 	    }
 	    //Dmage-dealing Attacks
 	    else {
-		if (spatk == 0){
+		if (normal){
 		    defense = enemy.getDefense();
+		    attack = atk;
 		}
-		if (atk == 0){ 
+		if (special){ 
 		    defense = enemy.getSpDefense();
+		    attack = spatk;
 		}
 		if (defense == 0) {
 		    defense = 1;
 		}
-		damage = (((2 * lvl + 10)/250.0) * ((atk+spatk)/defense) * power + 2) * modifier;
+		damage = (((2 * lvl + 10)/250.0) * (attack/defense) * power + 2) * modifier;
+		enemy.lowerHp((int)damage);
+		System.out.println(name + " did " + (int)damage + " damage to " + enemy.getName() + "!");
 	    }
         }
-	System.out.println(name + " used " + moveSet[move-1] + "!");
-        enemy.lowerHp((int)damage);
         normalize();
-        enemy.normalize();
-    	System.out.println(name + " did " + (int)damage + " damage to " + enemy.getName() + "!");
-	checkPoint();
+	System.out.println("---------------------------------------------");
+	Thread.sleep(1000);
         return (int)damage;
     }
 
-    /*
-    public void status(Pokemon enemy){
-	//NEEDS MAX HEALTH IMPLEMENTATION
-	if (poison && enemy.getType() != "poison"){
-	    enemy.lowerHp(maxHealth / 8);
+    public void status(Pokemon enemy)throws InterruptedException{
+	if (poisoned){
+	    lowerHp(maxHp / 8);
+	    System.out.println(name + " has been posioned for " + (maxHp / 8) + " damage!");
+	    Thread.sleep(1000);
 	}
-	if (paralysis && enemy.getType() != "electric"){
-	    enemy.setSpeed(enemy.getSpeed / 4);
-	    if (Math.random * 4 > 1){
-		enemy.setAcc(0);
+	if (paralysis){
+	    //speed decreasing part will be in the enemy's move method
+	    if (Math.random() * 4 < 1){
+		acc = 0;
+		System.out.println(name + " has been paralyzed!");
+		Thread.sleep(1000);
 	    }
+	    paralysis = false;
+	}		
+	if (burned){
+	    //attack decreasing part will be in the enemy's move method
+	    lowerHp(maxHp / 8);
+	    System.out.println(name + " has been burned for " + (maxHp / 8) + " damage!");
+	    Thread.sleep(1000);
 	}
-	if (burned && enemy.getType() != "Fire"){
-	    enemy.setAttack(enemy.getAttack / 2);
-	    enemy.lowerHp(maxHealth / 8);
+	if (sleep > 0){
+	    acc = 0;
+	    System.out.println(name + " is asleep!");
+	    Thread.sleep(1000);
+	    sleep -= 1;
 	}
-	if (frozen && enemy.getType() != "ice"){
-	    e
-    */
+	if (toxic > 0){
+	    lowerHp(maxHp / 16 * toxic);
+	    System.out.println(name + " has been posioned for " + (maxHp / 16 * toxic) + " damage!");
+	    Thread.sleep(1000);
+	}
+	if (confused > 0){
+	    if (Math.random() * 2 < 1){
+		acc = 0;
+		int selfHit = (int)(((2 * lvl + 10)/250.0) * (atk/def) * 40 + 2);
+		System.out.println(name + " has attacked itself for " + selfHit + " damage!");
+		Thread.sleep(1000);
+	    }
+	    confused -= 1;
+	}
+	if (flinch){
+	    acc = 0;
+	    flinch = false;
+	}
+	//Only positive effect
+	if (leech){
+	    lowerHp(0 - (enemy.getMaxHp() / 8));
+	    enemy.lowerHp(enemy.getMaxHp() / 8);
+	}
+    }
     public double advantage(String ele1, String ele2){
 	//normal type advantages
 	if (ele1.equals("normal")) {
