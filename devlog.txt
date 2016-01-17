@@ -31,3 +31,7 @@ Created to-do.txt
 01/15
 Jason Chua/Ricky Wu:
 Implemented battle damage formula and double type advantage interaction
+
+01/16
+Ricky Wu:
+Started status effects

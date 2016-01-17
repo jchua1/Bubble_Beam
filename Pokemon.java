@@ -4,6 +4,7 @@ public abstract class Pokemon {
     
     protected double _hp, _atk, _spatk, _def , _spdef, _spd, _acc;
     protected double hp, atk, spatk, def, spdef, spd, acc, power;
+    protected boolean burned, poisoned, paralysis, frozen, sleep, confused, leech, flinch; 
     protected int lvl, xp;
     protected String type, type2, _type, name;
     protected String[] moveSet, allMoves;
@@ -51,9 +52,8 @@ public abstract class Pokemon {
 	return type2;
     }
 
-    public int getLevel() {
-	return lvl;
-    }
+    public String getAttackType(){
+	return _type
     
     public int getXp() {
         return xp;
@@ -88,7 +88,7 @@ public abstract class Pokemon {
     }
 
     public void setType(String x) {
-	type = x;
+	_type = x;
     }
 
     public abstract void moves(int pick, Pokemon enemy);
@@ -180,8 +180,26 @@ public abstract class Pokemon {
 	checkPoint();
         return (int)damage;
     }
-    
 
+    /*
+    public void status(Pokemon enemy){
+	//NEEDS MAX HEALTH IMPLEMENTATION
+	if (poison && enemy.getType() != "poison"){
+	    enemy.lowerHp(maxHealth / 8);
+	}
+	if (paralysis && enemy.getType() != "electric"){
+	    enemy.setSpeed(enemy.getSpeed / 4);
+	    if (Math.random * 4 > 1){
+		enemy.setAcc(0);
+	    }
+	}
+	if (burned && enemy.getType() != "Fire"){
+	    enemy.setAttack(enemy.getAttack / 2);
+	    enemy.lowerHp(maxHealth / 8);
+	}
+	if (frozen && enemy.getType() != "ice"){
+	    e
+    */
     public double advantage(String ele1, String ele2){
 	//normal type advantages
 	if (ele1.equals("normal")) {
