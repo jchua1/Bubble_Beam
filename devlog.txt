@@ -43,3 +43,6 @@ Changes (Please Read):
 -normalize has been combined with nursejoy and renamed updateStats
 -new normalize method will only update spd + acc and reset special and normal to false
 -every move now has to: 1) specify special or normal, unless its a buff and 2) specify power
+
+Jason Chua:
+Started writing Trainer.java
