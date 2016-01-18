@@ -11,12 +11,12 @@ public class Trainer {
 	current = 0;
     }
 
-    public String getPokemon(int partySlot) {
-	return party[partySlot].getName();
+    public Pokemon getPokemon(int partySlot) {
+	return party[partySlot];
     }
 
-    public String getCurrent() {
-	return party[current].getName();
+    public Pokemon getCurrent() {
+	return party[current];
     }
 
     public void setPokemon(int partySlot, Pokemon x) {
