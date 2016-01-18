@@ -101,6 +101,10 @@ public abstract class Pokemon {
 	type = x;
     }
 
+    public String toString() {
+	return name;
+    }
+
     public abstract void moves(int pick, Pokemon enemy);
 
     public abstract void name(int level) throws InterruptedException;
@@ -251,6 +255,8 @@ public abstract class Pokemon {
 	    enemy.lowerHp(enemy.getMaxHp() / 8);
 	}
     }
+
+
     public double advantage(String ele1, String ele2){
 	//normal type advantages
 	if (ele1.equals("normal")) {
