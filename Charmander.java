@@ -10,6 +10,7 @@ public class Charmander extends Pokemon {
 	_acc = 100;
 	_type = "fire";
 	type = "fire";
+	_type2 = "";
 	updateStats();
 	name = "Charmander";
 	moveSet = new String[] {"Growl","Scratch","Ember","Smokescreen"};

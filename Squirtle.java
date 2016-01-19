@@ -10,6 +10,7 @@ public class Squirtle extends Pokemon {
 	_acc = 100;
 	_type = "water";
 	type = "water";
+	_type2 = "";
 	updateStats();
 	name = "Squirtle";
 	moveSet = new String[] {"Tackle","Tail Whip","Water Gun","Bubble"};
