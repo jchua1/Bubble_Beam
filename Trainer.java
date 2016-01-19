@@ -2,13 +2,14 @@ public class Trainer {
     
     private String name;
     private Pokemon[] party;
-    private int current;
+    private int current, pokeballs;
 
     public Trainer(String x, Pokemon y) {
 	name = x;
 	party = new Pokemon[6];
 	party[0] = y;
 	current = 0;
+	pokeballs = 0;
     }
 
     public Pokemon getPokemon(int partySlot) {
@@ -19,12 +20,20 @@ public class Trainer {
 	return party[current];
     }
 
+    public int getPokeballs() {
+	return pokeballs;
+    }
+
     public void setPokemon(int partySlot, Pokemon x) {
 	party[partySlot] = x;
     }
 
     public void switchPokemon(int x) {
 	current = x;
+    }
+
+    public void addPokeballs(int x) {
+	pokeballs += x;
     }
 
     public static void main(String[] args) {
@@ -42,6 +51,9 @@ public class Trainer {
 	System.out.println(x.getCurrent());
 	x.switchPokemon(2);
 	System.out.println(x.getCurrent());
+	System.out.println(x.getPokeballs());
+	x.addPokeballs(5);
+	System.out.println(x.getPokeballs());
     }
 
 }
