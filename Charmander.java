@@ -71,21 +71,18 @@ public class Charmander extends Pokemon {
     public void moves(int pick, Pokemon enemy){
 	String move = moveSet[pick - 1];
 	if (move.equals("Growl")){
-	    atk = 0;
-	    spatk = 0;
 	    enemy.setAttack(enemy.getAttack() - 5.0);
 	}
 	if (move.equals("Scratch")){
-	    spatk = 0; 
 	    setType("normal");
+	    normal = true;
+	    power = 40;
 	}
 	if (move.equals("Ember")){
-	    atk = 0;
+	    special = true;
 	    setType("fire");
 	}
 	if (move.equals("Smokescreeen")){
-	    atk = 0;
-	    spatk = 0;
 	    enemy.setAccuracy(enemy.getAccuracy() - 10.0);
 	}
     }

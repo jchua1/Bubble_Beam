@@ -1,7 +1,10 @@
+import java.util.ArrayList;
+
 public class Trainer {
     
     private String name;
     private Pokemon[] party;
+    private ArrayList storage;
     private int current, pokeballs;
 
     public Trainer(String x, Pokemon y) {
@@ -10,6 +13,7 @@ public class Trainer {
 	party[0] = y;
 	current = 0;
 	pokeballs = 0;
+	storage = new ArrayList<Pokemon>();
     }
 
     public Pokemon getPokemon(int partySlot) {

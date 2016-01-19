@@ -7,8 +7,20 @@ public abstract class Pokemon {
     protected boolean burned, poisoned, paralysis, leech, flinch, normal, special;
     protected int sleep, toxic, confused;
     protected int lvl, xp;
+    protected int atkStage, spatkStage, defStage, spdefStage, spdStage, accStage;
     protected String type, _type2, _type, name;
     protected String[] moveSet, allMoves;
+    protected double[] accStages = {.33,.375,.428,.5,.6,.75,1,1.33,1.66,2,2.33,2.66,3};
+    protected double[] statStages = {.25,.285,.33,.4,.5,.66,1,1.5,2,2.5,3,3.5,4};
+
+    public Pokemon() {
+	atkStage = 6;
+	spatkStage = 6;
+	defStage = 6;
+	spdefStage = 6;
+	spdStage = 6;
+	accStage = 6;
+    }
 
     public String getName() {
 	return name;
@@ -67,6 +79,30 @@ public abstract class Pokemon {
 
     public int getLevel() {
 	return lvl;
+    }
+
+    public int getAtkStage() {
+	return atkStage;
+    }
+
+    public int getSpatkStage() {
+	return spatkStage;
+    }
+
+    public int getDefStage() {
+	return defStage;
+    }
+
+    public int getSpdefStage() {
+	return spdefStage;
+    }
+
+    public int getSpdStage() {
+	return spdStage;
+    }
+
+    public int getAccStage() {
+	return accStage;
     }
 
     public void setAttack(double x) {
@@ -172,15 +208,16 @@ public abstract class Pokemon {
 	    modifier *= advantage(_type,enemy.getType2());
 	}
 	status(enemy);
+	moves(move,enemy);
+	setStages();
 	if (Math.random()*100 < acc){
-	    moves(move, enemy);
 	    System.out.println(name + " used " + moveSet[move-1] + "!");
 	    Thread.sleep(1000);
 	    //Buffs and Debuffs
 	    if (!normal && !special){
 		damage = 0; 
 	    }
-	    //Dmage-dealing Attacks
+	    //Damage-dealing Attacks
 	    else {
 		if (normal){
 		    defense = enemy.getDefense();
@@ -457,5 +494,6 @@ public abstract class Pokemon {
 	//x.levelUp(100000);
 	Pokemon y = new Bulbasaur(14);
 	x.attack(3,y);
+	System.out.print(x.getAtkStage());
     }
 }
