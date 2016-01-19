@@ -47,3 +47,9 @@ Changes (Please Read):
 Jason Chua:
 Started writing Trainer.java
 Added toString() method to Pokemon.java for use in Trainer
+
+01/18
+Jason Chua:
+Added more methods to Trainer.java
+Modified constructors of Pokemon classes
+Updated play method in Game.java
