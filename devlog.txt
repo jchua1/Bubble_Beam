@@ -53,3 +53,8 @@ Jason Chua:
 Added more methods to Trainer.java
 Modified constructors of Pokemon classes
 Updated play method in Game.java
+
+01/19:
+Jason Chua, Ricky Wu:
+Started stage altering system for stats to deal with buffs and debuffs
+
