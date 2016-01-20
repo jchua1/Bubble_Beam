@@ -2,7 +2,7 @@ import cs1.Keyboard;
 
 public abstract class Pokemon {
     
-    protected double _hp, _atk, _spatk, _def , _spdef, _spd, _acc;
+    protected double _hp, _atk, _spatk, _def , _spdef, _spd;
     protected double hp, atk, spatk, def, spdef, spd, acc, power, maxHp;
     protected boolean burned, poisoned, paralysis, leech, flinch, normal, special;
     protected int sleep, toxic, confused;
@@ -137,6 +137,40 @@ public abstract class Pokemon {
 	type = x;
     }
 
+    public void setAtkStage(int x) {
+	atkStage = checkStage(atkStage - x);
+    }
+
+    public void setSpatkStage(int x) {
+	spatkStage = checkStage(spatkStage - x);
+    }
+
+    public void setDefStage(int x) {
+	defStage = checkStage(defStage - x);
+    }
+
+    public void setSpdefStage(int x) {
+	spdefStage = checkStage(spdefStage - x);
+    }
+
+    public void setSpdStage(int x) {
+	spdStage = checkStage(spdStage - x);
+    }
+
+    public void setAccStage(int x) {
+	accStage = checkStage(accStage - x);
+    }
+
+    public int checkStage(int x) {
+	if (x < 0) {
+	    return 0;
+	}
+	else if (x > 12) {
+	    return 12;
+	}
+	return x;
+    }
+
     public String toString() {
 	return name;
     }
@@ -144,13 +178,6 @@ public abstract class Pokemon {
     public abstract void moves(int pick, Pokemon enemy);
 
     public abstract void name(int level) throws InterruptedException;
-    
-    public void checkPoint(){
-	System.out.println("Type f.");
-        while (!(Keyboard.readString().equals("f"))){
-            System.out.println("Please type f.");
-	}
-    }
     
     public void lowerHp(double x) {
 	hp -= x;
@@ -192,7 +219,7 @@ public abstract class Pokemon {
 	def = (int)((2 * _def) * (lvl / 100.0) + 5);
 	spdef = (int)((2 * _spdef) * (lvl / 100.0) + 5);
 	spd = (int)((2 * _spd) * (lvl / 100.0) + 5);
-	acc = _acc;
+	acc = 100;
 	type = _type;
 	power = 0;
 	hp = (int)((2 * _hp) * (lvl / 100.0) + lvl + 10);
@@ -203,14 +230,13 @@ public abstract class Pokemon {
 	double damage = 0;
 	double defense = 0;
 	double attack = 0;
-	double modifier = ((Math.random()*16+85)/100) * advantage(_type,enemy.getType());
+	double modifier = ((Math.random()*16+85)/100) * advantage(type,enemy.getType());
 	if (!enemy.getType2().equals("")) {
-	    modifier *= advantage(_type,enemy.getType2());
+	    modifier *= advantage(type,enemy.getType2());
 	}
 	status(enemy);
 	moves(move,enemy);
-	setStages();
-	if (Math.random()*100 < acc){
+	if (Math.random()*100 < acc * accStages[accStage]){
 	    System.out.println(name + " used " + moveSet[move-1] + "!");
 	    Thread.sleep(1000);
 	    //Buffs and Debuffs
@@ -220,15 +246,12 @@ public abstract class Pokemon {
 	    //Damage-dealing Attacks
 	    else {
 		if (normal){
-		    defense = enemy.getDefense();
-		    attack = atk;
+		    defense = enemy.getDefense() * statStages[enemy.getDefStage()];
+		    attack = atk * statStages[atkStage];
 		}
 		if (special){ 
-		    defense = enemy.getSpDefense();
-		    attack = spatk;
-		}
-		if (defense == 0) {
-		    defense = 1;
+		    defense = enemy.getSpDefense() * statStages[enemy.getSpdefStage()];
+		    attack = spatk * statStages[spatkStage];
 		}
 		damage = (((2 * lvl + 10)/250.0) * (attack/defense) * power + 2) * modifier;
 		enemy.lowerHp((int)damage);
@@ -238,6 +261,7 @@ public abstract class Pokemon {
         normalize();
 	System.out.println("---------------------------------------------");
 	Thread.sleep(1000);
+	System.out.println(name + "'s HP: " + hp + "\n" + enemy.getName() + "'s HP: " + enemy.getHp());
         return (int)damage;
     }
 
@@ -293,7 +317,7 @@ public abstract class Pokemon {
 	}
     }
 
-
+	
     public double advantage(String ele1, String ele2){
 	//normal type advantages
 	if (ele1.equals("normal")) {
@@ -490,10 +514,10 @@ public abstract class Pokemon {
     }
 
     public static void main(String[] args) throws InterruptedException {
-	Pokemon x = new Charmander(14);
+	Pokemon x = new Charmander(100);
 	//x.levelUp(100000);
 	Pokemon y = new Bulbasaur(14);
+	System.out.println(y.getHp());
 	x.attack(3,y);
-	System.out.print(x.getAtkStage());
     }
 }

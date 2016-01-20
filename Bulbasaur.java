@@ -7,7 +7,7 @@ public class Bulbasaur extends Pokemon {
 	_def = 49;
 	_spdef = 65;
 	_spd = 45;
-	_acc = 100;
+	acc = 100;
 	_type = "grass";
 	type = "grass";
 	_type2 = "poison";
@@ -32,12 +32,10 @@ public class Bulbasaur extends Pokemon {
     public void name(int level){
 	if (level == 36) {
 	    System.out.println("Your Ivysaur has evolved into a Venusaur!");
-	    checkPoint();
 	    name = "Venusaur";
 	}
 	if (level == 16) {
 	    System.out.println("Your Bulbasuar has evolved into a Venusaur!");
-	    checkPoint();
 	    name = "Ivysuar";
 	}
     }

@@ -7,7 +7,7 @@ public class Squirtle extends Pokemon {
 	_def = 65;
 	_spdef = 64;
 	_spd = 43;
-	_acc = 100;
+	acc = 100;
 	_type = "water";
 	type = "water";
 	_type2 = "";

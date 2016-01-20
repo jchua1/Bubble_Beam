@@ -7,7 +7,7 @@ public class Charmander extends Pokemon {
 	_def = 43;
 	_spdef = 50;
 	_spd = 65;
-	_acc = 100;
+	acc = 100;
 	_type = "fire";
 	type = "fire";
 	_type2 = "";
@@ -81,6 +81,7 @@ public class Charmander extends Pokemon {
 	if (move.equals("Ember")){
 	    special = true;
 	    setType("fire");
+	    power = 50;
 	}
 	if (move.equals("Smokescreeen")){
 	    enemy.setAccuracy(enemy.getAccuracy() - 10.0);
