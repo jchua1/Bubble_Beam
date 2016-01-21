@@ -105,6 +105,30 @@ public abstract class Pokemon {
 	return accStage;
     }
 
+    public void setStatus(String x) {
+	if (x.equals("poisoned")) {
+	    poisoned = true;
+	}
+        if (x.equals("burned")) {
+	    burned = true;
+	}
+	if (x.equals("paralysis")) {
+	    paralysis = true;
+	}
+	if (x.equals("sleep")) {
+	    sleep = (int)(Math.random()*3+1);
+	}
+	if (x.equals("flinch")) {
+	    flinch = true;
+	}
+	if (x.equals("toxic") && (toxic == 0)) {
+	    toxic = 1;
+	}
+	if (x.equals("confused")) {
+	    confused = (int)(Math.random()*3+1);
+	}
+    }
+
     public void setAttack(double x) {
         atk = x;
     }
@@ -178,6 +202,8 @@ public abstract class Pokemon {
     public abstract void moves(int pick, Pokemon enemy);
 
     public abstract void name(int level) throws InterruptedException;
+
+    public abstract void learn(int level) throws InterruptedException;
     
     public void lowerHp(double x) {
 	hp -= x;
@@ -261,6 +287,9 @@ public abstract class Pokemon {
 		if (buffStat == "acc"){
 		    accStage += buffNum;
 		}
+		if (buffStat == "leech") {
+		    leech = true;
+		}
 		System.out.println(name + "'s " + buffStat);
 	    }
 	    if (debuff){
@@ -282,6 +311,7 @@ public abstract class Pokemon {
 		if (buffStat == "acc"){
 		    enemy.setAccStage(buffNum);
 		}
+		enemy.setStatus(buffStat);
 		System.out.println(enemy.getName() + "'s " + buffStat + " fell!") ;
 	    }
 	    if (normal){
@@ -310,6 +340,10 @@ public abstract class Pokemon {
     }
 
     public void status(Pokemon enemy)throws InterruptedException{
+	if (hp == 0) {
+	    System.out.println(name + " has fainted!");
+	    return;
+	}
 	if (poisoned){
 	    lowerHp(maxHp / 8);
 	    System.out.println(name + " has been posioned for " + (maxHp / 8) + " damage!");
@@ -359,6 +393,10 @@ public abstract class Pokemon {
 	    lowerHp(0 - (enemy.getMaxHp() / 8));
 	    enemy.lowerHp(enemy.getMaxHp() / 8);
 	    System.out.println(name + " saps " + enemy.getName() + " for " + enemy.getMaxHp()/8 + " HP!");
+	}
+	if (hp == 0) {
+	    System.out.println(name + " has fainted!");
+	    return;
 	}
     }
 

@@ -63,10 +63,14 @@ Jason Chua, Ricky Wu:
 Completed stage altering system for stats
 Updated Game.java to test basic moves with new battling system
 
-01/21;
+01/21:
 Jason Chua, Ricky Wu:
 Finished making debuff/buff system
 
 Ricky Wu:
 Fixed debuff vs. accuracy ordering problem by introducing even more varaiables (yay!) debuff and buff now have their own booleans and function similarly to normal and special
+
+01/22:
+COMPLETELY FINISHED STATUS STUFF (maybe)
+
 

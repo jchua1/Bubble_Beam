@@ -46,6 +46,7 @@ public class Bulbasaur extends Pokemon {
 	    debuff = true;
 	    buffStat = "atk";
 	    buffNum = -1;
+	    acc = 100;
 	}
 	if (move.equals("Tackle")){
 	    normal = true;
@@ -60,8 +61,24 @@ public class Bulbasaur extends Pokemon {
 	    acc = 100;
 	}
 	if (move.equals("Leech Seed")){
-	    leech = true;
-	    System.out.println(enemy.getName() + " was seeded!");
+	    debuff = true;
+	    buffStat = "leech";
+	    acc = 90;
+	}
+	if (move.equals("Poison Powder")) {
+	    debuff = true;
+	    buffStat = "poisoned";
+	    acc = 75;
+	}
+	if (move.equals("Razor Leaf")) {
+	    special = true;
+	    setType("grass");
+	    power = 55;
+	    acc = 95;
+	}
+	if (move.equals("Growth")) {
+	    buff = true;
+	    buffStat = "spatk";
 	}
     }
 
