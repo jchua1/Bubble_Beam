@@ -13,8 +13,8 @@ public class Charmander extends Pokemon {
 	_type2 = "";
 	updateStats();
 	name = "Charmander";
-	moveSet = new String[] {"Growl","Scratch","Ember","Smokescreen"};
-	allMoves = new String[] {"Growl","Scratch","Ember","Smokescreen","Dragon Rage","Scary Face","Fire Fang","Slash","Flamethrower"};
+	moveSet = new String[] {"Scratch","Growl","Ember","Leer"};
+	allMoves = new String[] {"Scratch","Growl","Ember","Leer","Rage","Slash","Flamethrower","Fire Spin"};
     }
 
     public Charmander(int level){
@@ -71,20 +71,26 @@ public class Charmander extends Pokemon {
     public void moves(int pick, Pokemon enemy){
 	String move = moveSet[pick - 1];
 	if (move.equals("Growl")){
-	    enemy.setAttack(enemy.getAttack() - 5.0);
+	    enemy.setAtkStage(-1);
+	    acc = 100; 
+	    System.out.println(enemy.getName() + "'s attack fell!");
+	    //NOTE TO SELF: FIX INTERACTION BETWEEN ACC AND STAGE ALTERATION
 	}
 	if (move.equals("Scratch")){
-	    setType("normal");
 	    normal = true;
+	    setType("normal");
 	    power = 40;
+	    acc = 100;
 	}
 	if (move.equals("Ember")){
 	    special = true;
 	    setType("fire");
-	    power = 50;
+	    power = 40;
+	    acc = 100;
 	}
-	if (move.equals("Smokescreeen")){
-	    enemy.setAccuracy(enemy.getAccuracy() - 10.0);
+	if (move.equals("Leer")){
+	    enemy.setDefStage(-1);
+	    System.out.println(enemy.getName() + "'s defense fell!");
 	}
     }
 

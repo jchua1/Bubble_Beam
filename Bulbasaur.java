@@ -13,8 +13,8 @@ public class Bulbasaur extends Pokemon {
 	_type2 = "poison";
 	updateStats();
 	name = "Bulbasaur";
-	moveSet = new String[] {"Tackle","Growl","Vine Whip","Take Down"};
-	allMoves = new String[] {"Tackle","Growl","Vine Whip","Take Down","Razor Leaf","Double-Edge"};//add all moves later
+	moveSet = new String[] {"Tackle","Growl","Leech Seed","Vine Whip"};
+	allMoves = new String[] {"Tackle","Growl","Leech Seed","Vine Whip","Poison Powder","Razor Leaf","Growth","Sleep Powder","Solar Beam"};
     }
 
     public Bulbasaur(int level){
@@ -43,21 +43,24 @@ public class Bulbasaur extends Pokemon {
     public void moves(int pick, Pokemon enemy){
 	String move = moveSet[pick - 1];
 	if (move.equals("Growl")){
-	    atk = 0;
-	    spatk = 0;
-	    enemy.setAttack(enemy.getAttack() - 5.0);
+	    enemy.setAtkStage(-1);
+	    System.out.println(enemy.getName() + "'s attack fell!");
 	}
 	if (move.equals("Tackle")){
-	    spatk = 0; 
+	    normal = true;
 	    setType("normal");
+	    power = 35;
+	    acc = 95;
 	}
 	if (move.equals("Vine Whip")){
-	    spatk = 0;
+	    special = true;
 	    setType("grass");
+	    power = 35;
+	    acc = 100;
 	}
-	if (move.equals("Take Down")){
-	    spatk = 0;
-	    setType("normal");
+	if (move.equals("Leech Seed")){
+	    leech = true;
+	    System.out.println(enemy.getName() + " was seeded!");
 	}
     }
 

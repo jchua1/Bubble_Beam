@@ -13,8 +13,8 @@ public class Squirtle extends Pokemon {
 	_type2 = "";
 	updateStats();
 	name = "Squirtle";
-	moveSet = new String[] {"Tackle","Tail Whip","Water Gun","Bubble"};
-	allMoves = new String[] {};//add moves later
+	moveSet = new String[] {"Tackle","Tail Whip","Bubble","Water Gun"};
+	allMoves = new String[] {"Tackle","Tail Whip","Bubble","Water Gun","Bite","Withdraw","Skull Bash","Hydro Pump"};
     }
 
     public Squirtle(int level){
@@ -29,37 +29,43 @@ public class Squirtle extends Pokemon {
 	}
     }
 
-    public void name(int level){
+    public void name(int level) throws InterruptedException{
 	if (level == 36) {
 	    System.out.println("Your Wartortle has evolved into a Blastoise!");
-	    checkPoint();
+	    Thread.sleep(1000);
 	    name = "Blastoise";
 	}
 	if (level == 16) {
 	    System.out.println("Your Squirtle has evolved into a Wartortle!");
-	    checkPoint();
-	    name = "Wortortle";
+	    Thread.sleep(1000);
+	    name = "Wartortle";
 	}
     }
 
     public void moves(int pick, Pokemon enemy){
 	String move = moveSet[pick - 1];
 	if (move.equals("Tail Whip")){
-	    atk = 0;
-	    spatk = 0;
-	    enemy.setDefense(enemy.getDefense() - 5.0);
+	    enemy.setDefStage(-1);
+	    acc = 100;
+	    System.out.println(enemy.getName() + "'s defense fell!");
 	}
 	if (move.equals("Tackle")){
-	    spatk = 0; 
+	    normal = true;
 	    setType("normal");
+	    power = 35;
+	    acc = 95;
 	}
 	if (move.equals("Water Gun")){
-	    atk = 0;
+	    special = true;
 	    setType("water");
+	    power = 40;
+	    acc = 100;
 	}
 	if (move.equals("Bubble")){
-	    atk = 0;
+	    special = true;
 	    setType("water");
+	    power = 20;
+	    acc = 100;
 	}
     }
 
