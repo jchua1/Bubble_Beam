@@ -14,7 +14,7 @@ Done:
  - Basic functionality
 
 To Do:
- 1. Battling system intricacies (Buffs/Debuffs/Status effects) - 3 hours
+ 1. Battling system intricacies (Buffs/Debuffs/Status effects) - 3 hours(DONE)
  2. Catching Pokemon - 1 hour
  3. Storing caught Pokemon - 1 hour
  4. Writing all Pokemon.java subclasses - 5 hours
@@ -22,9 +22,9 @@ To Do:
  6. Creation and completion of City.java - 1 hour
  7. Elite Four (Winning the game) - 1 hour
  8. Coding the game to implement all classes - 4 hours
- 9. Saving the game - 1 hour
 
 OPTIONAL:
  - ASCII art for Pokemon battles
  - Storyline
  - Side missions
+ - Saving the game

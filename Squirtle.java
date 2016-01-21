@@ -45,9 +45,9 @@ public class Squirtle extends Pokemon {
     public void moves(int pick, Pokemon enemy){
 	String move = moveSet[pick - 1];
 	if (move.equals("Tail Whip")){
-	    enemy.setDefStage(-1);
-	    acc = 100;
-	    System.out.println(enemy.getName() + "'s defense fell!");
+	    debuff = true;
+	    buffStat = "def";
+	    buffNum = -1;
 	}
 	if (move.equals("Tackle")){
 	    normal = true;

@@ -39,36 +39,45 @@ public class Game {
             System.out.println("You now have a " + x.getName() + " that is level 3!");
 	    Thread.sleep(1000);
 	    System.out.println("You're on your way to becoming the Pokemon league champion!");
-            Pokemon y = new Charmander(5);
+	    System.out.println("What would you like to do?\n\t1. Go to the Wilderness\n\t2. Fight the Gym Leader");
+	    inputI = Keyboard.readInt();
+	    while (inputI != 1){
+		System.out.println("Invalid Choice!");
+		if (inputI == 2){
+		    System.out.println("This feature has not yet been implemented.");
+		}
+		inputI = Keyboard.readInt();
+	    }
+	    System.out.println("Ok! Let's Go!");
+	    Pokemon y = new Charmander(5);
 	    Thread.sleep(1000);
-            System.out.println("Oh no! A wild Charmander appeared!");
-            while ((x.getHp() > 0) && (y.getHp() > 0)) {
-                int move = 0;
-                int enemyMove = 0;
+	    System.out.println("Oh no! A wild Charmander appeared!");
+	    while ((x.getHp() > 0) && (y.getHp() > 0)) {
+		int move = 0;
+		int enemyMove = 0;
 		Thread.sleep(1000);
-                System.out.println("What move will you use?");
-                System.out.println("\t1. " + x.moveSet[0]
+		System.out.println("What move will you use?");
+		System.out.println("\t1. " + x.moveSet[0]
 				   + "\n\t2. " + x.moveSet[1]
 				   + "\n\t3. " + x.moveSet[2]
 				   + "\n\t4. " + x.moveSet[3]);
-                move = Keyboard.readInt();
-                x.attack(move,y);
-                System.out.println("Enemy's Turn:");
-                enemyMove = (int)(Math.random()*4 + 1);
-                y.attack(enemyMove,x);
-                System.out.println("Your HP: " + x.getHp() + " Enemy HP: " + y.getHp());
-            }
-            if (x.getHp() == 0) {
-                System.out.println("Oh no! Your " + x.getName() + " fainted! There go your hopes and dreams of becoming a Pokemon master. :(");
-            }
-            else {
-		x.levelUp(y.getLevel() * (int)(Math.sqrt(y.getLevel())));
-		System.out.println(x.getName() + " earned " + y.getLevel() * (int)(Math.sqrt(y.getLevel())) + " experience!");
-                System.out.println("You defeated the Charmander! Congratulations! Thanks for playing!");
-            }
-            finished = true;
-        }
-    }
+		move = Keyboard.readInt();
+		x.attack(move,y);
+		    System.out.println("Enemy's Turn:");
+		    enemyMove = (int)(Math.random()*4 + 1);
+		    y.attack(enemyMove,x);
+		}
+		if (x.getHp() == 0) {
+		    System.out.println("Oh no! Your " + x.getName() + " fainted! There go your hopes and dreams of becoming a Pokemon master. :(");
+		}
+		else {
+		    x.levelUp(y.getLevel() * (int)(Math.sqrt(y.getLevel())));
+		    System.out.println(x.getName() + " earned " + y.getLevel() * (int)(Math.sqrt(y.getLevel())) + " experience!");
+		    System.out.println("You defeated the Charmander! Congratulations! Thanks for playing!");
+		}
+		finished = true;
+	    }
+	}
     
     public static void main(String[] args) throws InterruptedException{
         Game x = new Game();

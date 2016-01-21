@@ -43,8 +43,9 @@ public class Bulbasaur extends Pokemon {
     public void moves(int pick, Pokemon enemy){
 	String move = moveSet[pick - 1];
 	if (move.equals("Growl")){
-	    enemy.setAtkStage(-1);
-	    System.out.println(enemy.getName() + "'s attack fell!");
+	    debuff = true;
+	    buffStat = "atk";
+	    buffNum = -1;
 	}
 	if (move.equals("Tackle")){
 	    normal = true;

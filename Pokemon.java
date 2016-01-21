@@ -4,11 +4,11 @@ public abstract class Pokemon {
     
     protected double _hp, _atk, _spatk, _def , _spdef, _spd;
     protected double hp, atk, spatk, def, spdef, spd, acc, power, maxHp;
-    protected boolean burned, poisoned, paralysis, leech, flinch, normal, special;
+    protected boolean burned, poisoned, paralysis, leech, flinch, normal, special, buff, debuff;
     protected int sleep, toxic, confused;
     protected int lvl, xp;
-    protected int atkStage, spatkStage, defStage, spdefStage, spdStage, accStage;
-    protected String type, _type2, _type, name;
+    protected int atkStage, spatkStage, defStage, spdefStage, spdStage, accStage, buffNum;
+    protected String type, _type2, _type, name, buffStat;
     protected String[] moveSet, allMoves;
     protected double[] accStages = {.33,.375,.428,.5,.6,.75,1,1.33,1.66,2,2.33,2.66,3};
     protected double[] statStages = {.25,.285,.33,.4,.5,.66,1,1.5,2,2.5,3,3.5,4};
@@ -209,6 +209,8 @@ public abstract class Pokemon {
     public void normalize() {
         normal = false;
 	special = false;
+	buff = false;
+	debuff = false;
 	spd = (int)((2 * _spd) * (lvl / 100.0) + 5);
 	acc = 100;
     }
@@ -236,29 +238,65 @@ public abstract class Pokemon {
 	}
 	status(enemy);
 	moves(move,enemy);
-	System.out.println(name + " used " + moveSet[move-1] + "!");
 	if (Math.random()*100 < acc * accStages[accStage]){
 	    Thread.sleep(1000);
 	    //Buffs and Debuffs
-	    if (!normal && !special){
-		damage = 0; 
-	    }
 	    //Damage-dealing Attacks
-	    else {
-		if (normal){
-		    defense = enemy.getDefense() * statStages[enemy.getDefStage()];
-		    attack = atk * statStages[atkStage];
+	    if (buff){
+		if (buffStat == "atk"){
+		    atkStage += buffNum;
 		}
-		if (special){ 
-		    defense = enemy.getSpDefense() * statStages[enemy.getSpdefStage()];
-		    attack = spatk * statStages[spatkStage];
+		if (buffStat == "spatk"){
+		    spatkStage += buffNum;
 		}
-		damage = (((2 * lvl + 10)/250.0) * (attack/defense) * power + 2) * modifier;
-		enemy.lowerHp((int)damage);
-		System.out.println(name + " did " + (int)damage + " damage to " + enemy.getName() + "!");
+		if (buffStat == "def"){
+		    defStage += buffNum;
+		}
+		if (buffStat == "spdef"){
+		    spdefStage += buffNum;
+		}
+		if (buffStat == "spd"){
+		    spdStage += buffNum;
+		}
+		if (buffStat == "acc"){
+		    accStage += buffNum;
+		}
+		System.out.println(name + "'s " + buffStat);
 	    }
+	    if (debuff){
+		if (buffStat == "atk"){
+		    enemy.setAtkStage(buffNum);
+		}
+		if (buffStat == "spatk"){
+		    enemy.setSpatkStage(buffNum);
+		}
+		if (buffStat == "def"){
+		    enemy.setDefStage(buffNum);
+		}
+		if (buffStat == "spdef"){
+		    enemy.setSpdefStage(buffNum);
+		}
+		if (buffStat == "spd"){
+		    enemy.setSpdStage(buffNum);
+		}
+		if (buffStat == "acc"){
+		    enemy.setAccStage(buffNum);
+		}
+		System.out.println(enemy.getName() + "'s " + buffStat + " fell!") ;
+	    }
+	    if (normal){
+		defense = enemy.getDefense() * statStages[enemy.getDefStage()];
+		attack = atk * statStages[atkStage];
+	    }
+	    if (special){ 
+		defense = enemy.getSpDefense() * statStages[enemy.getSpdefStage()];
+		attack = spatk * statStages[spatkStage];
+	    }
+	    damage = (((2 * lvl + 10)/250.0) * (attack/defense) * power + 2) * modifier;
+	    enemy.lowerHp((int)damage);
+	    System.out.println(name + " did " + (int)damage + " damage to " + enemy.getName() + "!");
         }
-	else {
+	else if (acc >= 0){
 	    Thread.sleep(1000);
 	    System.out.println(name + "'s attack missed!");
 	}
@@ -266,6 +304,8 @@ public abstract class Pokemon {
 	System.out.println("---------------------------------------------");
 	Thread.sleep(1000);
 	System.out.println(name + "'s HP: " + hp + "\n" + enemy.getName() + "'s HP: " + enemy.getHp());
+	System.out.println("---------------------------------------------");
+	Thread.sleep(1000);
         return (int)damage;
     }
 
