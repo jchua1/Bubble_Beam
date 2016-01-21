@@ -138,27 +138,27 @@ public abstract class Pokemon {
     }
 
     public void setAtkStage(int x) {
-	atkStage = checkStage(atkStage - x);
+	atkStage = checkStage(atkStage + x);
     }
 
     public void setSpatkStage(int x) {
-	spatkStage = checkStage(spatkStage - x);
+	spatkStage = checkStage(spatkStage + x);
     }
 
     public void setDefStage(int x) {
-	defStage = checkStage(defStage - x);
+	defStage = checkStage(defStage + x);
     }
 
     public void setSpdefStage(int x) {
-	spdefStage = checkStage(spdefStage - x);
+	spdefStage = checkStage(spdefStage + x);
     }
 
     public void setSpdStage(int x) {
-	spdStage = checkStage(spdStage - x);
+	spdStage = checkStage(spdStage + x);
     }
 
     public void setAccStage(int x) {
-	accStage = checkStage(accStage - x);
+	accStage = checkStage(accStage + x);
     }
 
     public int checkStage(int x) {
@@ -236,8 +236,8 @@ public abstract class Pokemon {
 	}
 	status(enemy);
 	moves(move,enemy);
+	System.out.println(name + " used " + moveSet[move-1] + "!");
 	if (Math.random()*100 < acc * accStages[accStage]){
-	    System.out.println(name + " used " + moveSet[move-1] + "!");
 	    Thread.sleep(1000);
 	    //Buffs and Debuffs
 	    if (!normal && !special){
@@ -258,6 +258,10 @@ public abstract class Pokemon {
 		System.out.println(name + " did " + (int)damage + " damage to " + enemy.getName() + "!");
 	    }
         }
+	else {
+	    Thread.sleep(1000);
+	    System.out.println(name + "'s attack missed!");
+	}
         normalize();
 	System.out.println("---------------------------------------------");
 	Thread.sleep(1000);
@@ -314,6 +318,7 @@ public abstract class Pokemon {
 	if (leech){
 	    lowerHp(0 - (enemy.getMaxHp() / 8));
 	    enemy.lowerHp(enemy.getMaxHp() / 8);
+	    System.out.println(name + " saps " + enemy.getName() + " for " + enemy.getMaxHp()/8 + " HP!");
 	}
     }
 
@@ -514,10 +519,9 @@ public abstract class Pokemon {
     }
 
     public static void main(String[] args) throws InterruptedException {
-	Pokemon x = new Charmander(100);
+	Pokemon x = new Charmander(5);
 	//x.levelUp(100000);
-	Pokemon y = new Bulbasaur(14);
-	System.out.println(y.getHp());
-	x.attack(3,y);
+	Pokemon y = new Bulbasaur(3);
+	x.attack(1,y);
     }
 }
