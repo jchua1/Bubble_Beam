@@ -58,3 +58,8 @@ Updated play method in Game.java
 Jason Chua, Ricky Wu:
 Started stage altering system for stats to deal with buffs and debuffs
 
+01/20:
+Jason Chua, Ricky Wu:
+Completed stage altering system for stats
+Updated Game.java to test basic moves with new battling system
+

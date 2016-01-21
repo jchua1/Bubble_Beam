@@ -2,13 +2,6 @@ import cs1.Keyboard;
 
 public class Game {
     
-    public void checkPoint(){
-	System.out.println("Type f.");
-        while (!(Keyboard.readString().equals("f"))){
-            System.out.println("Please type f.");
-	}
-    }
-    
     public void play() throws InterruptedException{
         Pokemon x = new Bulbasaur(1);
 	Trainer a = new Trainer("John Doe", x);
