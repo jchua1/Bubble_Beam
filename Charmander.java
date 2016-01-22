@@ -92,6 +92,53 @@ public class Charmander extends Pokemon {
 	    buffStat = "def";
 	    buffNum = -1;
 	}
+	if (move.equals("Rage")) {
+	    normal = true;
+	    setType("normal");
+	    power = 20;
+	    acc = 100; //continuous??
+	}
+	if (move.equals("Slash")) {
+	    normal = true;
+	    setType("normal");
+	    power = 70;
+	    acc = 100;
+	}
+	if (move.equals("Flamethrower")) {
+	    special = true;
+	    setType("fire");
+	    power = 95;
+	    acc = 100;
+	}
+	if (move.equals("Fire Spin")) {
+	    special = true;
+	    setType("fire");
+	    power = 15;
+	    acc = 70; //trapping mechanism??
+	}
+    }
+
+    public void learn(int level) throws InterruptedException {
+	if (level == 9) {
+	    moveSet[2] = "Ember";
+	    System.out.println(name + " learned Ember!");
+	}
+	if (level == 15) {
+	    moveSet[3] = "Leer";
+	    System.out.println(name + " learned Leer!");
+	}
+	if (level == 24) {
+	    learnMessage("Rage");
+	}
+	if (level == 36) {
+	    learnMessage("Slash");
+	}
+	if (level == 46) {
+	    learnMessage("Flamethrower");
+	}
+	if (level == 55) {
+	    learnMessage("Fire Spin");
+	}
     }
 
 }

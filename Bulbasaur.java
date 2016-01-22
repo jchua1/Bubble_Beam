@@ -1,3 +1,5 @@
+import cs1.Keyboard;
+
 public class Bulbasaur extends Pokemon {
 
     public Bulbasaur(){
@@ -29,18 +31,32 @@ public class Bulbasaur extends Pokemon {
 	}
     }
 
-    public void name(int level){
+    public void name(int level) throws InterruptedException{
 	if (level == 36) {
 	    System.out.println("Your Ivysaur has evolved into a Venusaur!");
+	    System.out.println("---------------------------------------------");
 	    name = "Venusaur";
+	    _hp = 80;
+	    _atk = 82;
+	    _spatk = 100;
+	    _def = 83;
+	    _spdef = 100;
+	    _spd = 80;
 	}
 	if (level == 16) {
 	    System.out.println("Your Bulbasuar has evolved into a Venusaur!");
+	    System.out.println("---------------------------------------------");
 	    name = "Ivysuar";
+	    _hp = 60;
+	    _atk = 62;
+	    _spatk = 80;
+	    _def = 80;
+	    _spdef = 80;
+	    _spd = 60;
 	}
     }
 
-    public void moves(int pick, Pokemon enemy){
+    public void moves(int pick, Pokemon enemy) {
 	String move = moveSet[pick - 1];
 	if (move.equals("Growl")){
 	    debuff = true;
@@ -79,7 +95,51 @@ public class Bulbasaur extends Pokemon {
 	if (move.equals("Growth")) {
 	    buff = true;
 	    buffStat = "spatk";
+	    buffNum = 1;
+	    acc = 100;
 	}
+	if (move.equals("Sleep Powder")) {
+	    debuff = true;
+	    buffStat = "sleep";
+	    acc = 75;
+	}
+	if (move.equals("Solar Beam")) {
+	    special = true;
+	    setType("grass");
+	    power = 120;
+	    acc = 100; //charge up time??
+	}
+    }
+
+    public void learn(int level) throws InterruptedException {
+	if (level == 7) {
+	    moveSet[2] = "Leech Seed";
+	    System.out.println(name + " learned Leech Seed!");
+	}
+	if (level == 13) {
+	    moveSet[3] = "Vine Whip";
+	    System.out.println(name + " learned Vine Whip!");
+	}
+	if (level == 22) {
+	    learnMessage("Poison Powder");
+	}
+	if (level == 30) {
+	    learnMessage("Razor Leaf");
+	}
+	if (level == 43) {
+	    learnMessage("Growth");
+	}
+	if (level == 55) {
+	    learnMessage("Sleep Powder");
+	}
+	if (level == 65) {
+	    learnMessage("Solar Beam");
+	}
+    }
+		
+    public static void main(String[] args) throws InterruptedException {
+	Pokemon x = new Bulbasaur(20);
+	x.levelUp(1000);
     }
 
 }

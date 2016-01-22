@@ -204,13 +204,49 @@ public abstract class Pokemon {
     public abstract void name(int level) throws InterruptedException;
 
     public abstract void learn(int level) throws InterruptedException;
+
+    public void learnMessage(String x) throws InterruptedException {
+	int input1 = 0;
+	int input2 = 0;
+	System.out.println(name + " wants to learn " + x + " but " + name + " already knows 4 moves!");
+	Thread.sleep(1000);
+	while ((input1 < 1) || (input1 > 2)) {
+	    System.out.println("Should a move be forgotten to make space for " + x + "?");
+	    System.out.println("\t1. Yes\n\t2. No");
+	    input1 = Keyboard.readInt();
+	    if ((input1 < 1) || (input1 > 2)) {
+		System.out.println("Invalid choice!");
+	    }
+	}
+	if (input1 == 1) {
+	    while ((input2 < 1) || (input2 > 4)) {
+		Thread.sleep(1000);
+		System.out.println("Which move should be forgotten?");
+		System.out.println("\t1. " + moveSet[0]);
+		System.out.println("\t2. " + moveSet[1]);
+		System.out.println("\t3. " + moveSet[2]);
+		System.out.println("\t4. " + moveSet[3]);
+		input2 = Keyboard.readInt();
+		if ((input2 < 1) || (input2 > 4)) {
+		    System.out.println("Invalid choice!");
+		}
+	    }
+	    System.out.println("1, 2, and Poof! " + name + " forgot " + moveSet[input2-1] + " and... ");
+	    Thread.sleep(1000);
+	    System.out.println(name + " learned " + x + "!");
+	    moveSet[input2-1] = x;
+	}
+	if (input1 == 2) {
+	    Thread.sleep(1000);
+	    System.out.println(name + " did not learn " + x + ".");
+	}
+    }
     
     public void lowerHp(double x) {
 	hp -= x;
     }
 
-    public void levelUp(int xpget)
-	throws InterruptedException {
+    public void levelUp(int xpget) throws InterruptedException {
         xp += xpget;
 	while (xp >= (lvl*lvl)) {
 	    xp -= (lvl * lvl);
@@ -228,7 +264,8 @@ public abstract class Pokemon {
 	    System.out.println("Special Defense: " + e + " --> " + spdef);
 	    System.out.println("Speed: " + f + " --> " + spd);
 	    System.out.println("---------------------------------------------");
-	    Thread.sleep(1000);	   
+	    Thread.sleep(1000);
+	    learn(lvl);
 	}
     }
 
