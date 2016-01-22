@@ -3,14 +3,13 @@ import java.util.ArrayList;
 public class Trainer {
     
     private String name;
-    private Pokemon[] party;
-    private ArrayList storage;
+    private ArrayList party, storage;
     private int current, pokeballs;
 
     public Trainer(String x, Pokemon y) {
 	name = x;
-	party = new Pokemon[6];
-	party[0] = y;
+	party = new ArrayList<Pokemon>();
+	party.add(y);
 	current = 0;
 	pokeballs = 0;
 	storage = new ArrayList<Pokemon>();
@@ -38,6 +37,13 @@ public class Trainer {
 
     public void addPokeballs(int x) {
 	pokeballs += x;
+    }
+
+    public void catchPokemon(Pokemon enemy) {
+	int catchChance = (int)(Math.random()*enemy.getMaxHp());
+	if (catchChance > enemy.getHp()*2) {
+	    
+	}
     }
 
     public static void main(String[] args) {

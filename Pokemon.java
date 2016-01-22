@@ -5,7 +5,7 @@ public abstract class Pokemon {
     protected double _hp, _atk, _spatk, _def , _spdef, _spd;
     protected double hp, atk, spatk, def, spdef, spd, acc, power, maxHp;
     protected boolean burned, poisoned, paralysis, leech, flinch, normal, special, buff, debuff;
-    protected int sleep, toxic, confused;
+    protected int sleep, toxic, confused, fireTrap;
     protected int lvl, xp;
     protected int atkStage, spatkStage, defStage, spdefStage, spdStage, accStage, buffNum;
     protected String type, _type2, _type, name, buffStat;
@@ -105,27 +105,46 @@ public abstract class Pokemon {
 	return accStage;
     }
 
-    public void setStatus(String x) {
+    public void setStatus(String x) throws InterruptedException {
 	if (x.equals("poisoned")) {
 	    poisoned = true;
+	    System.out.println(name + " has been poisoned!");
+	    Thread.sleep(1000);
 	}
         if (x.equals("burned")) {
 	    burned = true;
+	    System.out.println(name + " has been burned!");
+	    Thread.sleep(1000);
 	}
 	if (x.equals("paralysis")) {
 	    paralysis = true;
+	    System.out.println(name + " has been paralyzed!");
+	    Thread.sleep(1000);
 	}
 	if (x.equals("sleep")) {
 	    sleep = (int)(Math.random()*3+1);
+	    System.out.println(name + " has fallen asleep!");
+	    Thread.sleep(1000);
 	}
 	if (x.equals("flinch")) {
 	    flinch = true;
+	    System.out.println(name + " flinched!");
+	    Thread.sleep(1000);
 	}
 	if (x.equals("toxic") && (toxic == 0)) {
 	    toxic = 1;
+	    System.out.println(name + " has been badly poisoned!");
+	    Thread.sleep(1000);
 	}
 	if (x.equals("confused")) {
 	    confused = (int)(Math.random()*3+1);
+	    System.out.println(name + " has been confused!");
+	    Thread.sleep(1000);
+	}
+	if (x.equals("fire trap")) {
+	    fireTrap = (int)(Math.random()*4+2);
+	    System.out.println(name + " has been trapped!");
+	    Thread.sleep(1000);
 	}
     }
 
@@ -424,6 +443,12 @@ public abstract class Pokemon {
 	if (flinch){
 	    acc = 0;
 	    flinch = false;
+	}
+	if (fireTrap > 0) {
+	    lowerHp(maxHp / 8);
+	    fireTrap -= 1;
+	    System.out.println(name + " has taken " + maxHp/8 + " damage from Fire Spin!");
+	    Thread.sleep(1000);
 	}
 	//Only positive effect
 	if (leech){
