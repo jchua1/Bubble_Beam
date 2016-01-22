@@ -15,6 +15,7 @@ Done:
  - Basic functionality
 
 To Do:
+ - Move side effects - 1 hour
  - Catching Pokemon - 1 hour
  - Storing caught Pokemon - 1 hour
  - Writing all Pokemon.java subclasses - 5 hours
