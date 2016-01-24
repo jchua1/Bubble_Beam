@@ -107,19 +107,36 @@ public abstract class Pokemon {
 
     public void setStatus(String x) throws InterruptedException {
 	if (x.equals("poisoned")) {
-	    poisoned = true;
-	    System.out.println(name + " has been poisoned!");
-	    Thread.sleep(1000);
+	    if (_type.equals("poison") || _type2.equals("poison") || _type.equals("metal") || _type2.equals("metal")){
+		System.out.println("Posion does not affect this Pokemon");
+	    }
+	    else{
+		poisoned = true;
+		System.out.println(name + " has been poisoned!");
+		Thread.sleep(1000);
+	    }
 	}
         if (x.equals("burned")) {
-	    burned = true;
-	    System.out.println(name + " has been burned!");
-	    Thread.sleep(1000);
+	    if (_type.equals("fire") || _type2.equals("fire")){
+		System.out.println("Burn does not affect this Pokemon");
+	    }
+	    else{
+		burned = true;
+		setAtkStage(-3);
+		System.out.println(name + " has been burned!");
+		Thread.sleep(1000);
+	    }
 	}
 	if (x.equals("paralysis")) {
-	    paralysis = true;
-	    System.out.println(name + " has been paralyzed!");
-	    Thread.sleep(1000);
+	    if (_type.equals("electric") || _type2.equals("electric")){
+		System.out.println("Burn does not affect this Pokemon");
+	    }
+	    else{
+		paralysis = true;
+		setSpdStage(-14);
+		System.out.println(name + " has been paralyzed!");
+		Thread.sleep(1000);
+	    }
 	}
 	if (x.equals("sleep")) {
 	    sleep = (int)(Math.random()*3+1);
@@ -132,9 +149,14 @@ public abstract class Pokemon {
 	    Thread.sleep(1000);
 	}
 	if (x.equals("toxic") && (toxic == 0)) {
-	    toxic = 1;
-	    System.out.println(name + " has been badly poisoned!");
-	    Thread.sleep(1000);
+	    if (_type.equals("poison") || _type2.equals("poison") || _type.equals("metal") || _type2.equals("metal")){
+		System.out.println("Posion does not affect this Pokemon");
+	    }
+	    else{
+		toxic = 1;
+		System.out.println(name + " has been badly poisoned!");
+		Thread.sleep(1000);
+	    }
 	}
 	if (x.equals("confused")) {
 	    confused = (int)(Math.random()*3+1);
@@ -262,7 +284,10 @@ public abstract class Pokemon {
     }
     
     public void lowerHp(double x) {
-	hp -= x;
+    	hp -= x;
+    	if (hp < 0){
+	    hp = 0;
+    	}
     }
 
     public void levelUp(int xpget) throws InterruptedException {
@@ -293,8 +318,10 @@ public abstract class Pokemon {
 	special = false;
 	buff = false;
 	debuff = false;
+	buffStat  = "";
 	spd = (int)((2 * _spd) * (lvl / 100.0) + 5);
 	acc = 100;
+	type = _type;
     }
 	
     public void updateStats() {
@@ -306,20 +333,34 @@ public abstract class Pokemon {
 	acc = 100;
 	type = _type;
 	power = 0;
-	hp = (int)((2 * _hp) * (lvl / 100.0) + lvl + 10);
-	maxHp = hp;
+	maxHp = (int)((2 * _hp) * (lvl / 100.0) + lvl + 10);
+    }
+	
+    public void heal(){
+	hp = maxHp;
+	burned = poisoned = paralysis = leech = flinch = normal = special = buff = debuff = false;
+	sleep = toxic = confused = fireTrap = 0;
+    	atkStage = spatkStage = defStage = spdefStage = spdStage = accStage = 6; 
+    }
+	
+    public boolean checkDeath() {
+	if (hp == 0) {
+	    return true;
+	}
+	return false;
     }
 
-    public int attack(int move, Pokemon enemy) throws InterruptedException{
+    public void attack(int move, Pokemon enemy) throws InterruptedException{
 	double damage = 0;
 	double defense = 0;
 	double attack = 0;
-	double modifier = ((Math.random()*16+85)/100) * advantage(type,enemy.getType());
-	if (!enemy.getType2().equals("")) {
-	    modifier *= advantage(type,enemy.getType2());
-	}
 	status(enemy);
 	moves(move,enemy);
+	double modifier = ((Math.random()*16+85)/100.0) * advantage(getAttackType(),enemy.getType());
+	if (!enemy.getType2().equals("")) {
+	    modifier *= advantage(getAttackType(),enemy.getType2());
+	}
+	System.out.println(name + " used " + moveSet[move-1] + "!");
 	if (Math.random()*100 < acc * accStages[accStage]){
 	    Thread.sleep(1000);
 	    //Buffs and Debuffs
@@ -327,60 +368,74 @@ public abstract class Pokemon {
 	    if (buff){
 		if (buffStat == "atk"){
 		    atkStage += buffNum;
+		    System.out.println(name + "'s attack rose!");
 		}
 		if (buffStat == "spatk"){
 		    spatkStage += buffNum;
+		    System.out.println(name + "'s special attack rose!");
 		}
 		if (buffStat == "def"){
 		    defStage += buffNum;
+		    System.out.println(name + "'s defense rose!");
 		}
 		if (buffStat == "spdef"){
 		    spdefStage += buffNum;
+		    System.out.println(name + "'s special defense rose!");
 		}
 		if (buffStat == "spd"){
 		    spdStage += buffNum;
+		    System.out.println(name + "'s speed rose!");
 		}
 		if (buffStat == "acc"){
 		    accStage += buffNum;
+		    System.out.println(name + "'s accuracy rose!");
 		}
 		if (buffStat == "leech") {
 		    leech = true;
+		    System.out.println(enemy.getName() + " was leeched!");
 		}
-		System.out.println(name + "'s " + buffStat);
 	    }
 	    if (debuff){
 		if (buffStat == "atk"){
 		    enemy.setAtkStage(buffNum);
+		    System.out.println(enemy.getName() + "'s attack fell!");
 		}
 		if (buffStat == "spatk"){
 		    enemy.setSpatkStage(buffNum);
+		    System.out.println(enemy.getName() + "'s special attack fell!");
 		}
 		if (buffStat == "def"){
 		    enemy.setDefStage(buffNum);
+		    System.out.println(enemy.getName() + "'s defense fell!");
 		}
 		if (buffStat == "spdef"){
 		    enemy.setSpdefStage(buffNum);
+		    System.out.println(enemy.getName() + "'s special defense fell!");
 		}
 		if (buffStat == "spd"){
 		    enemy.setSpdStage(buffNum);
+		    System.out.println(enemy.getName() + "'s speed fell!");
 		}
 		if (buffStat == "acc"){
 		    enemy.setAccStage(buffNum);
+		    System.out.println(enemy.getName() + "'s accuracy fell!");
 		}
 		enemy.setStatus(buffStat);
-		System.out.println(enemy.getName() + "'s " + buffStat + " fell!") ;
 	    }
 	    if (normal){
 		defense = enemy.getDefense() * statStages[enemy.getDefStage()];
 		attack = atk * statStages[atkStage];
+		damage = (((2 * lvl + 10)/250.0) * (attack/defense) * power + 2) * modifier;
+		enemy.lowerHp((int)damage);
+		System.out.println(name + " did " + (int)damage + " damage to " + enemy.getName() + "!");
 	    }
 	    if (special){ 
 		defense = enemy.getSpDefense() * statStages[enemy.getSpdefStage()];
 		attack = spatk * statStages[spatkStage];
+		damage = (((2.0 * lvl + 10)/250.0) * (attack/defense) * power + 2) * modifier;
+		enemy.lowerHp((int)damage);
+		System.out.println(name + " did " + (int)damage + " damage to " + enemy.getName() + "!");
 	    }
-	    damage = (((2 * lvl + 10)/250.0) * (attack/defense) * power + 2) * modifier;
-	    enemy.lowerHp((int)damage);
-	    System.out.println(name + " did " + (int)damage + " damage to " + enemy.getName() + "!");
         }
 	else if (acc >= 0){
 	    Thread.sleep(1000);
@@ -392,7 +447,6 @@ public abstract class Pokemon {
 	System.out.println(name + "'s HP: " + hp + "\n" + enemy.getName() + "'s HP: " + enemy.getHp());
 	System.out.println("---------------------------------------------");
 	Thread.sleep(1000);
-        return (int)damage;
     }
 
     public void status(Pokemon enemy)throws InterruptedException{
@@ -452,9 +506,10 @@ public abstract class Pokemon {
 	}
 	//Only positive effect
 	if (leech){
-	    lowerHp(0 - (enemy.getMaxHp() / 8));
-	    enemy.lowerHp(enemy.getMaxHp() / 8);
-	    System.out.println(name + " saps " + enemy.getName() + " for " + enemy.getMaxHp()/8 + " HP!");
+	    lowerHp(0 - (int)(enemy.getMaxHp() / 8));
+	    enemy.lowerHp((int)enemy.getMaxHp() / 8);
+	    Thread.sleep(1000);
+	    System.out.println(name + " saps " + enemy.getName() + " for " + (int)enemy.getMaxHp()/8 + " HP!");
 	}
 	if (hp == 0) {
 	    System.out.println(name + " has fainted!");
