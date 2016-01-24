@@ -13,8 +13,9 @@ public class Bulbasaur extends Pokemon {
 	_type = "grass";
 	type = "grass";
 	_type2 = "poison";
-	updateStats();
 	name = "Bulbasaur";
+	updateStats();
+	heal();
 	moveSet = new String[] {"Tackle","Growl","Leech Seed","Vine Whip"};
 	allMoves = new String[] {"Tackle","Growl","Leech Seed","Vine Whip","Poison Powder","Razor Leaf","Growth","Sleep Powder","Solar Beam"};
     }
@@ -23,6 +24,7 @@ public class Bulbasaur extends Pokemon {
 	this();
 	lvl = level;
 	updateStats();
+	heal();
 	if (level >= 32) {
 	    name = "Venusaur";
 	}
@@ -77,7 +79,7 @@ public class Bulbasaur extends Pokemon {
 	    acc = 100;
 	}
 	if (move.equals("Leech Seed")){
-	    debuff = true;
+	    buff = true;
 	    buffStat = "leech";
 	    acc = 90;
 	}

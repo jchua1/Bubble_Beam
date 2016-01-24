@@ -1,3 +1,5 @@
+import cs1.Keyboard;
+
 public class Charmander extends Pokemon {
 
     public Charmander(){
@@ -11,8 +13,9 @@ public class Charmander extends Pokemon {
 	_type = "fire";
 	type = "fire";
 	_type2 = "";
-	updateStats();
 	name = "Charmander";
+	updateStats();
+	heal();
 	moveSet = new String[] {"Scratch","Growl","Ember","Leer"};
 	allMoves = new String[] {"Scratch","Growl","Ember","Leer","Rage","Slash","Flamethrower","Fire Spin"};
     }
@@ -21,6 +24,7 @@ public class Charmander extends Pokemon {
 	this();
 	lvl = level;
 	updateStats();
+	heal();
 	if (level >= 36) {
 	    name = "Charizard";
 	    _hp = 78;
@@ -139,6 +143,11 @@ public class Charmander extends Pokemon {
 	if (level == 55) {
 	    learnMessage("Fire Spin");
 	}
+    }
+    
+    public static void main(String[] args){
+    	Pokemon a = new Charmander(16);
+    	System.out.println(a.getHp());
     }
 
 }

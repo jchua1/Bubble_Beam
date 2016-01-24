@@ -1,7 +1,9 @@
+import cs1.Keyboard;
+
 public class Squirtle extends Pokemon {
 
     public Squirtle(){
-        _hp = 44;
+	_hp = 44;
 	_atk = 48;
 	_spatk = 50;
 	_def = 65;
@@ -11,8 +13,9 @@ public class Squirtle extends Pokemon {
 	_type = "water";
 	type = "water";
 	_type2 = "";
-	updateStats();
 	name = "Squirtle";
+	updateStats();
+	heal();
 	moveSet = new String[] {"Tackle","Tail Whip","Bubble","Water Gun"};
 	allMoves = new String[] {"Tackle","Tail Whip","Bubble","Water Gun","Bite","Withdraw","Skull Bash","Hydro Pump"};
     }
@@ -21,6 +24,7 @@ public class Squirtle extends Pokemon {
 	this();
 	lvl = level;
 	updateStats();
+	heal();
 	if (level >= 36) {
 	    name = "Blastoise";
 	}
