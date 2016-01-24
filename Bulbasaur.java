@@ -62,8 +62,8 @@ public class Bulbasaur extends Pokemon {
 	String move = moveSet[pick - 1];
 	if (move.equals("Growl")){
 	    debuff = true;
-	    buffStat = "atk";
-	    buffNum = -1;
+	    debuffStat = "atk";
+	    debuffNum = -1;
 	    acc = 100;
 	}
 	if (move.equals("Tackle")){
@@ -84,8 +84,8 @@ public class Bulbasaur extends Pokemon {
 	    acc = 90;
 	}
 	if (move.equals("Poison Powder")) {
-	    debuff = true;
-	    buffStat = "poisoned";
+	    status = true;
+	    statusName = "poisoned";
 	    acc = 75;
 	}
 	if (move.equals("Razor Leaf")) {
@@ -109,7 +109,7 @@ public class Bulbasaur extends Pokemon {
 	    special = true;
 	    setType("grass");
 	    power = 120;
-	    acc = 100; //charge up time??
+	    acc = 50; //charge up time??
 	}
     }
 
@@ -138,10 +138,4 @@ public class Bulbasaur extends Pokemon {
 	    learnMessage("Solar Beam");
 	}
     }
-		
-    public static void main(String[] args) throws InterruptedException {
-	Pokemon x = new Bulbasaur(20);
-	x.levelUp(1000);
-    }
-
 }

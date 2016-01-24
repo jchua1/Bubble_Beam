@@ -76,8 +76,8 @@ public class Charmander extends Pokemon {
 	String move = moveSet[pick - 1];
 	if (move.equals("Growl")){
 	    debuff = true;
-	    buffStat = "atk";
-	    buffNum = -1;
+	    debuffStat = "atk";
+	    debuffNum = -1;
 	}
 	if (move.equals("Scratch")){
 	    normal = true;
@@ -93,14 +93,17 @@ public class Charmander extends Pokemon {
 	}
 	if (move.equals("Leer")){
 	    debuff = true;
-	    buffStat = "def";
-	    buffNum = -1;
+	    debuffStat = "def";
+	    debuffNum = -1;
 	}
 	if (move.equals("Rage")) {
 	    normal = true;
 	    setType("normal");
 	    power = 20;
-	    acc = 100; //continuous??
+	    acc = 100;
+	    buff = true;
+	    buffStat = "atk";
+	    buffNum = 1;
 	}
 	if (move.equals("Slash")) {
 	    normal = true;
@@ -118,7 +121,9 @@ public class Charmander extends Pokemon {
 	    special = true;
 	    setType("fire");
 	    power = 15;
-	    acc = 70; //trapping mechanism??
+	    acc = 70;
+	    status = true;
+	    statusName = "fireTrap";
 	}
     }
 
@@ -144,10 +149,4 @@ public class Charmander extends Pokemon {
 	    learnMessage("Fire Spin");
 	}
     }
-    
-    public static void main(String[] args){
-    	Pokemon a = new Charmander(16);
-    	System.out.println(a.getHp());
-    }
-
 }

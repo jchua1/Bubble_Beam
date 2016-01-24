@@ -1,0 +1,27 @@
+	    normal = true;
+	    setType("normal");
+	    power = ;
+	    acc = ;
+
+
+	    special = true;
+	    setType("");
+	    power = ;
+	    acc = ;
+
+
+	    buff = true;
+	    buffStat = "";
+	    buffNum = ;
+	    acc = ;
+
+
+	    debuff = true;
+	    debuffStat = "";
+	    debuffNum = ;
+	    acc = ;
+
+
+	    status = true;
+	    statusName = "";
+	    acc = ;

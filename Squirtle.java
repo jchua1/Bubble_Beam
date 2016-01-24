@@ -64,8 +64,8 @@ public class Squirtle extends Pokemon {
 	String move = moveSet[pick - 1];
 	if (move.equals("Tail Whip")){
 	    debuff = true;
-	    buffStat = "def";
-	    buffNum = -1;
+	    debuffStat = "def";
+	    debuffNum = -1;
 	}
 	if (move.equals("Tackle")){
 	    normal = true;

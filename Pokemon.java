@@ -4,11 +4,11 @@ public abstract class Pokemon {
     
     protected double _hp, _atk, _spatk, _def , _spdef, _spd;
     protected double hp, atk, spatk, def, spdef, spd, acc, power, maxHp;
-    protected boolean burned, poisoned, paralysis, leech, flinch, normal, special, buff, debuff;
+    protected boolean burned, poisoned, paralysis, leech, flinch, normal, special, buff, debuff, status;
     protected int sleep, toxic, confused, fireTrap;
     protected int lvl, xp;
-    protected int atkStage, spatkStage, defStage, spdefStage, spdStage, accStage, buffNum;
-    protected String type, _type2, _type, name, buffStat;
+    protected int atkStage, spatkStage, defStage, spdefStage, spdStage, accStage, buffNum, debuffNum;
+    protected String type, _type2, _type, name, buffStat, debuffStat, statusName;
     protected String[] moveSet, allMoves;
     protected double[] accStages = {.33,.375,.428,.5,.6,.75,1,1.33,1.66,2,2.33,2.66,3};
     protected double[] statStages = {.25,.285,.33,.4,.5,.66,1,1.5,2,2.5,3,3.5,4};
@@ -318,6 +318,7 @@ public abstract class Pokemon {
 	special = false;
 	buff = false;
 	debuff = false;
+	status = false;
 	buffStat  = "";
 	spd = (int)((2 * _spd) * (lvl / 100.0) + 5);
 	acc = 100;
@@ -338,7 +339,7 @@ public abstract class Pokemon {
 	
     public void heal(){
 	hp = maxHp;
-	burned = poisoned = paralysis = leech = flinch = normal = special = buff = debuff = false;
+	burned = poisoned = paralysis = leech = flinch = normal = special = buff = debuff = status = false;
 	sleep = toxic = confused = fireTrap = 0;
     	atkStage = spatkStage = defStage = spdefStage = spdStage = accStage = 6; 
     }
@@ -396,31 +397,33 @@ public abstract class Pokemon {
 		}
 	    }
 	    if (debuff){
-		if (buffStat == "atk"){
+		if (debuffStat == "atk"){
 		    enemy.setAtkStage(buffNum);
 		    System.out.println(enemy.getName() + "'s attack fell!");
 		}
-		if (buffStat == "spatk"){
+		if (debuffStat == "spatk"){
 		    enemy.setSpatkStage(buffNum);
 		    System.out.println(enemy.getName() + "'s special attack fell!");
 		}
-		if (buffStat == "def"){
+		if (debuffStat == "def"){
 		    enemy.setDefStage(buffNum);
 		    System.out.println(enemy.getName() + "'s defense fell!");
 		}
-		if (buffStat == "spdef"){
+		if (debuffStat == "spdef"){
 		    enemy.setSpdefStage(buffNum);
 		    System.out.println(enemy.getName() + "'s special defense fell!");
 		}
-		if (buffStat == "spd"){
+		if (debuffStat == "spd"){
 		    enemy.setSpdStage(buffNum);
 		    System.out.println(enemy.getName() + "'s speed fell!");
 		}
-		if (buffStat == "acc"){
+		if (debuffStat == "acc"){
 		    enemy.setAccStage(buffNum);
 		    System.out.println(enemy.getName() + "'s accuracy fell!");
 		}
-		enemy.setStatus(buffStat);
+	    }
+	    if (status){
+		enemy.setStatus(statusName);
 	    }
 	    if (normal){
 		defense = enemy.getDefense() * statStages[enemy.getDefStage()];
