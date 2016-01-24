@@ -77,4 +77,9 @@ COMPLETELY FINISHED STATUS STUFF (maybe)
 Jason Chua:
 Finished move learning system and effects of moves for the 3 Pokemon classes
 
-
+01/23:
+Jason Chua/Ricky Wu:
+Wrote methods for battling Pokemon and trainers
+Finished Pokemon catching system and storing system
+Touched up on status effects
+Finished City.java and Trainer.java

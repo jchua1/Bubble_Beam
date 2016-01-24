@@ -6,6 +6,7 @@ Done:
  - Basic battling system
  - Evolving/Stat change
  - Battling system intricacies
+ - Status effects/Move side effects
 
 - Game.java:
  - Choosing starter Pokemon
@@ -13,16 +14,17 @@ Done:
 
 - Trainer.java:
  - Basic functionality
+ - Catching Pokemon
+ - Storing caught Pokemon
+ - Battling Pokemon and Trainers
+
+- City.java:
+ - Path choosing
+ - Spawning wild Pokemon to fight
 
 To Do:
- - Move side effects - 1 hour
- - Catching Pokemon - 1 hour
- - Storing caught Pokemon - 1 hour
- - Writing all Pokemon.java subclasses - 5 hours
- - Finishing missing parts of Trainer.java for use in City.java - 1 hour
- - Creation and completion of City.java - 1 hour
- - Elite Four (Winning the game) - 1 hour
- - Coding the game to implement all classes - 4 hours
+ - Writing all Pokemon.java subclasses - 2 hours
+ - Coding the game to implement all classes - 2 hours
 
 OPTIONAL:
  - ASCII art for Pokemon battles
