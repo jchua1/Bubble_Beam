@@ -16,7 +16,7 @@ public class Charmander extends Pokemon {
 	name = "Charmander";
 	updateStats();
 	heal();
-	moveSet = new String[] {"Scratch","Growl","Ember","Leer"};
+	moveSet = new String[] {"Scratch","Growl","",""};
 	allMoves = new String[] {"Scratch","Growl","Ember","Leer","Rage","Slash","Flamethrower","Fire Spin"};
     }
 

@@ -169,9 +169,15 @@ public class Trainer {
         int enemyMove = 0;
         System.out.println(y);
         Thread.sleep(1000);
+	int maxMoves = 0;
+	for (String i: getCurrent().moveSet){
+	    if (!i.equals("")){
+		maxMoves += 1;
+	    }
+	}
         while (getCurrent().getHp() != 0 && x.getHp() != 0) {
             move = 0;
-            while (!checkRange(move,1,7) || (move == 7 && !(y.substring(0,1).equals("A"))) || (move == 6 && pokeballs == 0)) {
+            while ((!checkRange(move,1,maxMoves) && !checkRange(move,5,7)) || (move == 7 && !(y.substring(0,1).equals("A"))) || (move == 6 && pokeballs == 0)) {
                 System.out.println("What will " + getCurrent() + " do?");
                 System.out.println("\t1." + getCurrent().moveSet[0]);
                 System.out.println("\t2." + getCurrent().moveSet[1]);
@@ -181,7 +187,7 @@ public class Trainer {
 		System.out.println("\t6.Catch");
 		System.out.println("\t7.Run");
                 move = Keyboard.readInt();
-                if (!checkRange(move,1,7)) {
+                if (!checkRange(move,1,maxMoves) && !checkRange(move,5,7)) {
 		    Thread.sleep(1000);
                     System.out.println("Invalid choice!");
                 }
@@ -243,9 +249,7 @@ public class Trainer {
 		    }
 		}
 	    }
-	    else if (checkRange(move,1,4)) {
-		System.out.println("Your Speed: " + getCurrent().getSpeed());
-		System.out.println("Enemy Speed: " + x.getSpeed());
+	    else if (checkRange(move,1, maxMoves)) {
 		if (getCurrent().getSpeed() >= x.getSpeed()){		    
 		    getCurrent().attack(move,x);
 		    if (x.checkDeath()) {

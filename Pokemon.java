@@ -249,6 +249,13 @@ public abstract class Pokemon {
     public void learnMessage(String x) throws InterruptedException {
 	int input1 = 0;
 	int input2 = 0;
+	for (int i = 0; i < 3; i++){
+	    if (moveSet[i].equals("")){
+		System.out.println(name + " learned " + x + "!");
+		moveSet[i] = x;
+		return;
+	    }
+	}
 	System.out.println(name + " wants to learn " + x + " but " + name + " already knows 4 moves!");
 	Thread.sleep(1000);
 	while ((input1 < 1) || (input1 > 2)) {

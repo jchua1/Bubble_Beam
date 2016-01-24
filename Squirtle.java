@@ -16,7 +16,7 @@ public class Squirtle extends Pokemon {
 	name = "Squirtle";
 	updateStats();
 	heal();
-	moveSet = new String[] {"Tackle","Tail Whip","Bubble","Water Gun"};
+	moveSet = new String[] {"Tackle","Tail Whip","",""};
 	allMoves = new String[] {"Tackle","Tail Whip","Bubble","Water Gun","Bite","Withdraw","Skull Bash","Hydro Pump"};
     }
 

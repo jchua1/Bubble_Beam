@@ -16,7 +16,7 @@ public class Bulbasaur extends Pokemon {
 	name = "Bulbasaur";
 	updateStats();
 	heal();
-	moveSet = new String[] {"Tackle","Growl","Leech Seed","Vine Whip"};
+	moveSet = new String[] {"Tackle","Growl","",""};
 	allMoves = new String[] {"Tackle","Growl","Leech Seed","Vine Whip","Poison Powder","Razor Leaf","Growth","Sleep Powder","Solar Beam"};
     }
 
