@@ -244,41 +244,70 @@ public class Trainer {
 		}
 	    }
 	    else if (checkRange(move,1,4)) {
-		getCurrent().attack(move,x);
-	    }
-            if (x.checkDeath()) {
-                Thread.sleep(1000);
-                System.out.println(x + " fainted!");
-                return;
-            }
-            enemyMove = (int)(Math.random()*4 + 1);
-            x.attack(enemyMove,getCurrent());
-	    if (getCurrent().checkDeath()) {
-		Thread.sleep(1000);
-		System.out.println(getCurrent() + " fainted!");
-		if (checkParty()) {
-		    while (!checkRange(input,1,party.size()) || party.get(input-1).getHp() == 0) {
-			System.out.println("Battle using which Pokemon?");
-			for (int i = 0; i < party.size(); i++) {
-			    System.out.println("\t" + (i+1) + ". " +  party.get(i) + " HP: " + party.get(i).getHp());
+		System.out.println("Your Speed: " + getCurrent().getSpeed());
+		System.out.println("Enemy Speed: " + x.getSpeed());
+		if (getCurrent().getSpeed() >= x.getSpeed()){		    
+		    getCurrent().attack(move,x);
+		    if (x.checkDeath()) {
+			Thread.sleep(1000);
+			System.out.println(x + " fainted!");
+			return;
+		    }
+		    enemyMove = (int)(Math.random()*4 + 1);
+		    x.attack(enemyMove,getCurrent());
+		    if (getCurrent().checkDeath()) {
+			Thread.sleep(1000);
+			System.out.println(getCurrent() + " fainted!");
+			if (checkParty()) {
+			    switchValid(input);
 			}
-			input = Keyboard.readInt();
-			if (!checkRange(input,1,party.size())) {
-			    System.out.println("Invalid choice!");
+			else {
+			    System.out.println("All your Pokemon have fainted!");
+			    return;
 			}
-			else if (party.get(input-1).getHp() == 0) {
-			    System.out.println(party.get(input-1) + " has no energy left to battle!");
-			}
-		    }		
-		    switchPokemon(input-1);
-		    System.out.println("Go! " + getCurrent() + "!");
+		    }
 		}
-		else {
-		    System.out.println("All your Pokemon have fainted!");
-		    return;
+		else{
+		    enemyMove = (int)(Math.random()*4 + 1);
+		    x.attack(enemyMove,getCurrent());
+		    if (getCurrent().checkDeath()) {
+			Thread.sleep(1000);
+			System.out.println(getCurrent() + " fainted!");
+			if (checkParty()) {
+			    switchValid(input);
+			}
+			else {
+			    System.out.println("All your Pokemon have fainted!");
+			    return;
+			}
+		    }
+		    getCurrent().attack(move,x);
+		    if (x.checkDeath()) {
+			Thread.sleep(1000);
+			System.out.println(x + " fainted!");
+			return;
+		    }
 		}
 	    }
 	}
+    }
+
+    public void switchValid(int input){
+	while (!checkRange(input,1,party.size()) || party.get(input-1).getHp() == 0) {
+	    System.out.println("Battle using which Pokemon?");
+	    for (int i = 0; i < party.size(); i++) {
+		System.out.println("\t" + (i+1) + ". " +  party.get(i) + " HP: " + party.get(i).getHp());
+	    }
+	    input = Keyboard.readInt();
+	    if (!checkRange(input,1,party.size())) {
+		System.out.println("Invalid choice!");
+	    }
+	    else if (party.get(input-1).getHp() == 0) {
+		System.out.println(party.get(input-1) + " has no energy left to battle!");
+	    }
+	}		
+	switchPokemon(input-1);
+	System.out.println("Go! " + getCurrent() + "!");
     }
 
     public boolean checkParty() {
