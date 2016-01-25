@@ -326,6 +326,7 @@ public abstract class Pokemon {
     }
 
     public void levelUp(int xpget) throws InterruptedException {
+	System.out.println(name + " has gained " + xpget + " XP!");
         xp += xpget;
 	while (xp >= (lvl*lvl)) {
 	    xp -= (lvl * lvl);
