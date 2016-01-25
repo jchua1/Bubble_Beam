@@ -175,6 +175,12 @@ public class Trainer {
 		maxMoves += 1;
 	    }
 	}
+	int maxEnemyMoves = 0;
+	for (String i: x.moveSet){
+	    if (!i.equals("")){
+		maxEnemyMoves += 1;
+	    }
+	}
         while (getCurrent().getHp() != 0 && x.getHp() != 0) {
             move = 0;
             while ((!checkRange(move,1,maxMoves) && !checkRange(move,5,7)) || (move == 7 && !(y.substring(0,1).equals("A"))) || (move == 6 && pokeballs == 0)) {
@@ -257,7 +263,7 @@ public class Trainer {
 			System.out.println(x + " fainted!");
 			return;
 		    }
-		    enemyMove = (int)(Math.random()*4 + 1);
+		    enemyMove = (int)(Math.random()*maxEnemyMoves + 1);
 		    x.attack(enemyMove,getCurrent());
 		    if (getCurrent().checkDeath()) {
 			Thread.sleep(1000);
@@ -272,7 +278,7 @@ public class Trainer {
 		    }
 		}
 		else{
-		    enemyMove = (int)(Math.random()*4 + 1);
+		    enemyMove = (int)(Math.random()*maxEnemyMoves + 1);
 		    x.attack(enemyMove,getCurrent());
 		    if (getCurrent().checkDeath()) {
 			Thread.sleep(1000);
