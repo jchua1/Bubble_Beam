@@ -24,7 +24,7 @@ public class Pikachu extends Pokemon {
 	this();
 	lvl = level;
 	giveMoves(level);
-	if (level >= 42) {
+	if (level >= 20) {
 	    name = "Raichu";
 	    _hp = 60;
 	    _atk = 90;
@@ -38,7 +38,7 @@ public class Pikachu extends Pokemon {
     }
 
     public void name(int level) throws InterruptedException{
-	if (level == 42) {
+	if (level == 20) {
 	    System.out.println("Your Pikachu evolved into Raichu!");
 	    System.out.println("---------------------------------------------");
 	    name = "Raichu";

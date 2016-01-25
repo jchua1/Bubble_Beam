@@ -13,7 +13,7 @@ public class Mrmime extends Pokemon {
 	_type = "psychic";
 	type = "psychic";
 	_type2 = "";
-	name = "Mrmime";
+	name = "Mr. Mime";
 	updateStats();
 	heal();
 	allMoves = new String[] {"Confusion","Double Slap","Meditate"};

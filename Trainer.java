@@ -5,7 +5,8 @@ public class Trainer {
     
     private String name;
     private ArrayList<Pokemon> party, storage;
-    private int current, pokeballs;
+    private int current, badges;
+    private boolean beatLeader;
 
     public Trainer(String x, Pokemon[] y) {
 	name = x;
@@ -14,8 +15,8 @@ public class Trainer {
 	    party.add(poke);
 	}
 	current = 0;
-	pokeballs = 2;
 	storage = new ArrayList<Pokemon>();
+	beatLeader = false;
     }
 
     public String getName() {
@@ -30,16 +31,20 @@ public class Trainer {
 	return party.get(current);
     }
 
-    public int getPokeballs() {
-	return pokeballs;
+    public boolean getBeatLeader() {
+	return beatLeader;
+    }
+
+    public int getBadges() {
+	return badges;
     }
 
     public void switchPokemon(int x) {
 	current = x;
     }
 
-    public void addPokeballs(int x) {
-	pokeballs += x;
+    public void setBeatLeader(boolean x) {
+	beatLeader = x;
     }
 
     public boolean catchPokemon(Pokemon enemy) {
@@ -80,8 +85,8 @@ public class Trainer {
     public void editParty() throws InterruptedException{
     	boolean done = false;
     	String introMessage = "What would you like to do?\n" 
-	    + "\t1. Release Pokemon from storage\n"
-	    + "\t2. Edit Party\n" 
+	    + "\t1. Edit Party\n"
+	    + "\t2. Heal all your Pokemon\n"
 	    + "\t3. Leave the Pokemon Center\n"
 	    + "---------------------------------------------";
     	System.out.println(introMessage);
@@ -97,32 +102,21 @@ public class Trainer {
 	    System.out.println("Leaving the Pokemon center...");
 	    done = true;
     	}
+    	else if (input == 2){
+	    for (Pokemon a: party){
+		a.updateStats();
+		a.heal();
+		System.out.println("Sorry for the wait! Your Pokemon are all healed up! :)\n"
+				   + "---------------------------------------------");
+		Thread.sleep(1000);
+	    }
+    	}
     	else if (storage.size() == 0){
 	    System.out.println("Sorry! You have no Pokemon in your storage!\n"
 			       + "---------------------------------------------");
 	    Thread.sleep(1000);	    
     	}
     	else if (input == 1){
-	    printStorage();
-	    Thread.sleep(1000);
-	    System.out.println("Who would you like to release?\n"
-			       + "---------------------------------------------");
-	    input = Keyboard.readInt();  
-	    while (!checkRange(input,1,storage.size())){
-		System.out.println("Invalid Input!");
-		printStorage();
-		Thread.sleep(1000);
-		System.out.println("Who would you like to release?\n"
-				   + "---------------------------------------------");
-		input = Keyboard.readInt(); 
-	    }
-	    if (checkRange(input,0,storage.size())){
-		storage.remove(input - 1);
-		System.out.print("You have released " + storage.get(input - 1).getName());
-	    } 
-    	}
-    	else if (input == 2){
-	    System.out.println("Choice 2!");
 	    printParty();
 	    Thread.sleep(1000);
 	    System.out.println("Who would you like to switch out?\n"
@@ -163,6 +157,10 @@ public class Trainer {
     }
     
     public void battle(Pokemon x, String y) throws InterruptedException{
+    	if (!checkParty()){
+	    System.out.println("Please heal at the Pokemon Center before you fight!");
+	    return;
+    	}
         int input = 0;
 	int input2 = 0;
         int move = 0;
@@ -183,7 +181,7 @@ public class Trainer {
 	}
         while (getCurrent().getHp() != 0 && x.getHp() != 0) {
             move = 0;
-            while ((!checkRange(move,1,maxMoves) && !checkRange(move,5,7)) || (move == 7 && !(y.substring(0,1).equals("A"))) || (move == 6 && pokeballs == 0) || (input2 == party.size()+1)) {
+            while ((!checkRange(move,1,maxMoves) && !checkRange(move,5,7)) || (move == 7 && !(y.substring(0,1).equals("A"))) || (input2 == party.size()+1)) {
 		input2 = 0;
                 System.out.println("What will " + getCurrent() + " do?");
                 System.out.println("\n\t1. " + getCurrent().moveSet[0]);
@@ -198,9 +196,6 @@ public class Trainer {
 		    Thread.sleep(1000);
                     System.out.println("Invalid choice!");
                 }
-		if (move == 6 && pokeballs == 0) {
-		    System.out.println("You don't have any Poke Balls!");
-		}
 		else if (move == 5) {
 		    while (!checkRange(input2,1,party.size()+1) || party.get(input2-1).getHp() == 0 || input2-1 == current) {
 			System.out.println("Choose a Pokemon.");
@@ -242,6 +237,12 @@ public class Trainer {
 	    if (move == 5) {
 		switchPokemon(input2-1);
 		System.out.println("Go! " + getCurrent() + "!");
+		maxMoves = 0;
+		for (String i: getCurrent().moveSet){
+		    if (!i.equals("")){
+			maxMoves += 1;
+		    }
+		}
 	    }
 	    else if (move == 6) {
 		if (!(y.substring(0,1).equals("A"))) {
@@ -251,7 +252,6 @@ public class Trainer {
 		}
 		else {
 		    System.out.println(name + " used a Poke Ball.");
-		    pokeballs -= 1;
 		    if (catchPokemon(x)) {
 			System.out.println("Gotcha!");
 			System.out.println("The wild " + x + " was caught!");
@@ -339,35 +339,18 @@ public class Trainer {
 
     public void battle(Trainer x) throws InterruptedException {
 	int leaderPokemon = 0;
-	while (x.checkParty()) {
+	while (x.checkParty() && checkParty()) {
 	    battle(x.getPokemon(leaderPokemon),x.getName() + " sent out " + x.getCurrent() + "!");
 	    leaderPokemon += 1;
 	    x.switchPokemon(leaderPokemon);
 	}
-	System.out.println("You have defeated " + x.getName() + "!");
+	if (!x.checkParty()) {
+	    System.out.println("You have defeated " + x.getName() + "!");
+	    beatLeader = true;
+	    badges += 1;
+	}
+	if (!checkParty()){
+	    System.out.println("Please go heal at the Pokemon Center!");
+	}
     }
-	    
-
-    public static void main(String[] args) throws InterruptedException {
-	Pokemon[] a = new Pokemon[1];
-	Pokemon[] b = new Pokemon[1];
-	Pokemon bulbasaur = new Bulbasaur(16);
-	Pokemon bulbasaur2 = new Bulbasaur(15);
-	Pokemon bulbasaur3 = new Bulbasaur(36);
-	a[0] = bulbasaur3;
-	b[0] = bulbasaur;
-	Pokemon squirtle = new Squirtle(3);
-	Pokemon charmander = new Charmander(3);
-	Pokemon bulbasaur4 = new Bulbasaur(3);
-	Trainer x = new Trainer("Ash",a);
-        Trainer y = new Trainer("Bob",b);
-	y.party.add(charmander);
-	y.party.add(bulbasaur4);
-	x.party.add(bulbasaur2);
-	x.party.add(squirtle);
-	x.battle(y);
-	x.printParty();
-	x.printStorage();
-    }
-
 }

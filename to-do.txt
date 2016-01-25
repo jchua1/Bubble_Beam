@@ -7,6 +7,7 @@ Done:
  - Evolving/Stat change
  - Battling system intricacies
  - Status effects/Move side effects
+ - Subclasses
 
 - Game.java:
  - Choosing starter Pokemon
@@ -21,10 +22,6 @@ Done:
 - City.java:
  - Path choosing
  - Spawning wild Pokemon to fight
-
-To Do:
- - Writing all Pokemon.java subclasses - 2 hours
- - Coding the game to implement all classes - 2 hours
 
 OPTIONAL:
  - ASCII art for Pokemon battles

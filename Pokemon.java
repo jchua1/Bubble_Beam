@@ -750,12 +750,4 @@ public abstract class Pokemon {
 	//returns 1 if no type advantage
 	return 1;
     }
-
-    public static void main(String[] args) {
-	Pokemon x = new Bulbasaur(12);
-	System.out.println(x.moveSet[0]);
-	System.out.println(x.moveSet[1]);
-	System.out.println(x.moveSet[2]);
-	System.out.println(x.moveSet[3]);
-    }
 }

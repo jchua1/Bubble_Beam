@@ -23,8 +23,6 @@ public class Squirtle extends Pokemon {
     public Squirtle(int level){
 	this();
 	lvl = level;
-	updateStats();
-	heal();
 	giveMoves(level);
 	if (level >= 36) {
 	    name = "Blastoise";
@@ -44,6 +42,8 @@ public class Squirtle extends Pokemon {
 	    _spdef = 80;
 	    _spd = 58;
 	}
+	updateStats();
+	heal();
     }
 
     public void name(int level) throws InterruptedException{

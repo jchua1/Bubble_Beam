@@ -83,3 +83,9 @@ Wrote methods for battling Pokemon and trainers
 Finished Pokemon catching system and storing system
 Touched up on status effects
 Finished City.java and Trainer.java
+
+01/24:
+Jason Chua/Ricky Wu:
+Finished everything
+Did as many bug checks as possible (hopefully no more!)
+
