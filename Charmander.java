@@ -16,15 +16,14 @@ public class Charmander extends Pokemon {
 	name = "Charmander";
 	updateStats();
 	heal();
-	moveSet = new String[] {"Scratch","Growl","",""};
 	allMoves = new String[] {"Scratch","Growl","Ember","Leer","Rage","Slash","Flamethrower","Fire Spin"};
+	levelLearn = new int[] {1,1,9,15,24,36,46,55};
     }
 
     public Charmander(int level){
 	this();
 	lvl = level;
-	updateStats();
-	heal();
+	giveMoves(level);
 	if (level >= 36) {
 	    name = "Charizard";
 	    _hp = 78;
@@ -43,6 +42,8 @@ public class Charmander extends Pokemon {
 	    _spdef = 65;
 	    _spd = 80;
 	}
+	updateStats();
+	heal();
     }
 
     public void name(int level) throws InterruptedException {
@@ -95,6 +96,7 @@ public class Charmander extends Pokemon {
 	    debuff = true;
 	    debuffStat = "def";
 	    debuffNum = -1;
+	    acc = 100;
 	}
 	if (move.equals("Rage")) {
 	    normal = true;
@@ -124,29 +126,6 @@ public class Charmander extends Pokemon {
 	    acc = 70;
 	    status = true;
 	    statusName = "fireTrap";
-	}
-    }
-
-    public void learn(int level) throws InterruptedException {
-	if (level == 9) {
-	    moveSet[2] = "Ember";
-	    System.out.println(name + " learned Ember!");
-	}
-	if (level == 15) {
-	    moveSet[3] = "Leer";
-	    System.out.println(name + " learned Leer!");
-	}
-	if (level == 24) {
-	    learnMessage("Rage");
-	}
-	if (level == 36) {
-	    learnMessage("Slash");
-	}
-	if (level == 46) {
-	    learnMessage("Flamethrower");
-	}
-	if (level == 55) {
-	    learnMessage("Fire Spin");
 	}
     }
 }

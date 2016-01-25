@@ -9,9 +9,11 @@ public abstract class Pokemon {
     protected int lvl, xp;
     protected int atkStage, spatkStage, defStage, spdefStage, spdStage, accStage, buffNum, debuffNum;
     protected String type, _type2, _type, name, buffStat, debuffStat, statusName;
-    protected String[] moveSet, allMoves;
+    protected String[] moveSet = new String[4];
+    protected String[] allMoves;
     protected double[] accStages = {.33,.375,.428,.5,.6,.75,1,1.33,1.66,2,2.33,2.66,3};
     protected double[] statStages = {.25,.285,.33,.4,.5,.66,1,1.5,2,2.5,3,3.5,4};
+    protected int[] levelLearn;
 
     public Pokemon() {
 	atkStage = 6;
@@ -20,6 +22,7 @@ public abstract class Pokemon {
 	spdefStage = 6;
 	spdStage = 6;
 	accStage = 6;
+	moveSet = new String[4];
     }
 
     public String getName() {
@@ -129,7 +132,7 @@ public abstract class Pokemon {
 	}
 	if (x.equals("paralysis")) {
 	    if (_type.equals("electric") || _type2.equals("electric")){
-		System.out.println("Burn does not affect this Pokemon");
+		System.out.println("Paralysis does not affect this Pokemon");
 	    }
 	    else{
 		paralysis = true;
@@ -244,12 +247,37 @@ public abstract class Pokemon {
 
     public abstract void name(int level) throws InterruptedException;
 
-    public abstract void learn(int level) throws InterruptedException;
+    public void giveMoves(int a){
+	int counter = 0;
+	while (counter < levelLearn.length && levelLearn[counter] < a){
+	    counter += 1;
+	}
+	counter -= 1;
+	if (counter < 3){
+	    for (;counter > 0; counter--){
+		allMoves[counter] = moveSet[counter];
+	    }
+	}
+        else{
+	    for (int b = 3; b >= 0 ; b--){
+		moveSet[b] = allMoves[counter];
+		counter -= 1;
+	    }
+	}
+    }
+
+    public void learn(int level) throws InterruptedException {
+        for (int a = 0; a < levelLearn.length; a++){
+	    if (level == levelLearn[a]){
+		learnMessage(allMoves[a]);
+	    }
+	}
+    }
 
     public void learnMessage(String x) throws InterruptedException {
 	int input1 = 0;
 	int input2 = 0;
-	for (int i = 0; i < 3; i++){
+	for (int i = 0; i < 4; i++){
 	    if (moveSet[i].equals("")){
 		System.out.println(name + " learned " + x + "!");
 		moveSet[i] = x;
@@ -306,10 +334,10 @@ public abstract class Pokemon {
 	    System.out.println("---------------------------------------------");
 	    Thread.sleep(1000);	   
 	    name(lvl);
-	    double a = hp; double b = atk; double c = spatk; double d = def; double e = spdef; double f = spd;
+	    double a = maxHp; double b = atk; double c = spatk; double d = def; double e = spdef; double f = spd;
 	    updateStats();
-	    System.out.println("HP: " + a + " --> " + hp);
-	    System.out.println("Atk: " + b + " --> " + atk);
+	    System.out.println("HP: " + a + " --> " + maxHp);
+	    System.out.println("Attack: " + b + " --> " + atk);
 	    System.out.println("Special Attack: " + c + " --> " + spatk);
 	    System.out.println("Defense: " + d + " --> " + def);
 	    System.out.println("Special Defense: " + e + " --> " + spdef);
@@ -513,7 +541,7 @@ public abstract class Pokemon {
 	    fireTrap -= 1;
 	    System.out.println(name + " has taken " + maxHp/8 + " damage from Fire Spin!");
 	    Thread.sleep(1000);
-	}
+	}	    
 	//Only positive effect
 	if (leech){
 	    lowerHp(0 - (int)(enemy.getMaxHp() / 8));
@@ -721,12 +749,5 @@ public abstract class Pokemon {
 	}
 	//returns 1 if no type advantage
 	return 1;
-    }
-
-    public static void main(String[] args) throws InterruptedException {
-	Pokemon x = new Charmander(5);
-	//x.levelUp(100000);
-	Pokemon y = new Bulbasaur(3);
-	x.attack(1,y);
     }
 }

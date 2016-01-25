@@ -16,8 +16,8 @@ public class Squirtle extends Pokemon {
 	name = "Squirtle";
 	updateStats();
 	heal();
-	moveSet = new String[] {"Tackle","Tail Whip","",""};
 	allMoves = new String[] {"Tackle","Tail Whip","Bubble","Water Gun","Bite","Withdraw","Skull Bash","Hydro Pump"};
+	levelLearn = new int[] {1,1,8,15,24,31,42,52};
     }
 
     public Squirtle(int level){
@@ -25,11 +25,24 @@ public class Squirtle extends Pokemon {
 	lvl = level;
 	updateStats();
 	heal();
+	giveMoves(level);
 	if (level >= 36) {
 	    name = "Blastoise";
+	    _hp = 79;
+	    _atk = 83;
+	    _spatk = 85;
+	    _def = 100;
+	    _spdef = 105;
+	    _spd = 78;
 	}
 	else if (level >= 16) {
 	    name = "Wartortle";
+	    _hp = 59;
+	    _atk = 63;
+	    _spatk = 65;
+	    _def = 80;
+	    _spdef = 80;
+	    _spd = 58;
 	}
     }
 
@@ -110,28 +123,4 @@ public class Squirtle extends Pokemon {
 	    acc = 80;
 	}		
     }
-
-    public void learn(int level) throws InterruptedException {
-	if (level == 8) {
-	    moveSet[2] = "Bubble";
-	    System.out.println(name + " learned Bubble!");
-	}
-	if (level == 15) {
-	    moveSet[3] = "Water Gun";
-	    System.out.println(name + " learned Water Gun!");
-	}
-	if (level == 24) {
-	    learnMessage("Bite");
-	}
-	if (level == 31) {
-	    learnMessage("Withdraw");
-	}
-	if (level == 42) {
-	    learnMessage("Skull Bash");
-	}
-	if (level == 52) {
-	    learnMessage("Hydro Pump");
-	}
-    }
-
 }

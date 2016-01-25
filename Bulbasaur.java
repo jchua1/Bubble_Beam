@@ -16,26 +16,39 @@ public class Bulbasaur extends Pokemon {
 	name = "Bulbasaur";
 	updateStats();
 	heal();
-	moveSet = new String[] {"Tackle","Growl","",""};
 	allMoves = new String[] {"Tackle","Growl","Leech Seed","Vine Whip","Poison Powder","Razor Leaf","Growth","Sleep Powder","Solar Beam"};
+	levelLearn = new int[] {1,1,7,13,22,30,43,55,65};
     }
 
     public Bulbasaur(int level){
 	this();
 	lvl = level;
-	updateStats();
-	heal();
+	giveMoves(level);
 	if (level >= 32) {
 	    name = "Venusaur";
+	    _hp = 80;
+	    _atk = 82;
+	    _spatk = 100;
+	    _def = 83;
+	    _spdef = 100;
+	    _spd = 80;
 	}
 	else if (level >= 16) {
 	    name = "Ivysaur";
+	    _hp = 60;
+	    _atk = 62;
+	    _spatk = 80;
+	    _def = 80;
+	    _spdef = 80;
+	    _spd = 60;
 	}
+	updateStats();
+	heal();
     }
 
     public void name(int level) throws InterruptedException{
 	if (level == 36) {
-	    System.out.println("Your Ivysaur has evolved into a Venusaur!");
+	    System.out.println("Your Ivysaur evolved into Venusaur!");
 	    System.out.println("---------------------------------------------");
 	    name = "Venusaur";
 	    _hp = 80;
@@ -46,7 +59,7 @@ public class Bulbasaur extends Pokemon {
 	    _spd = 80;
 	}
 	if (level == 16) {
-	    System.out.println("Your Bulbasuar has evolved into a Venusaur!");
+	    System.out.println("Your Bulbasaur evolved into Ivysaur!");
 	    System.out.println("---------------------------------------------");
 	    name = "Ivysuar";
 	    _hp = 60;
@@ -109,33 +122,7 @@ public class Bulbasaur extends Pokemon {
 	    special = true;
 	    setType("grass");
 	    power = 120;
-	    acc = 50; //charge up time??
-	}
-    }
-
-    public void learn(int level) throws InterruptedException {
-	if (level == 7) {
-	    moveSet[2] = "Leech Seed";
-	    System.out.println(name + " learned Leech Seed!");
-	}
-	if (level == 13) {
-	    moveSet[3] = "Vine Whip";
-	    System.out.println(name + " learned Vine Whip!");
-	}
-	if (level == 22) {
-	    learnMessage("Poison Powder");
-	}
-	if (level == 30) {
-	    learnMessage("Razor Leaf");
-	}
-	if (level == 43) {
-	    learnMessage("Growth");
-	}
-	if (level == 55) {
-	    learnMessage("Sleep Powder");
-	}
-	if (level == 65) {
-	    learnMessage("Solar Beam");
+	    acc = 50;
 	}
     }
 }
