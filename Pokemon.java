@@ -22,7 +22,7 @@ public abstract class Pokemon {
 	spdefStage = 6;
 	spdStage = 6;
 	accStage = 6;
-	moveSet = new String[4];
+	moveSet = new String[] {"","","",""};
     }
 
     public String getName() {
@@ -111,7 +111,7 @@ public abstract class Pokemon {
     public void setStatus(String x) throws InterruptedException {
 	if (x.equals("poisoned")) {
 	    if (_type.equals("poison") || _type2.equals("poison") || _type.equals("metal") || _type2.equals("metal")){
-		System.out.println("Posion does not affect this Pokemon");
+		System.out.println("It doesn't affect " + name + "!");
 	    }
 	    else{
 		poisoned = true;
@@ -121,7 +121,7 @@ public abstract class Pokemon {
 	}
         if (x.equals("burned")) {
 	    if (_type.equals("fire") || _type2.equals("fire")){
-		System.out.println("Burn does not affect this Pokemon");
+		System.out.println("It doesn't affect " + name + "...");
 	    }
 	    else{
 		burned = true;
@@ -132,7 +132,7 @@ public abstract class Pokemon {
 	}
 	if (x.equals("paralysis")) {
 	    if (_type.equals("electric") || _type2.equals("electric")){
-		System.out.println("Paralysis does not affect this Pokemon");
+		System.out.println("It doesn't affect " + name + "...");
 	    }
 	    else{
 		paralysis = true;
@@ -152,8 +152,8 @@ public abstract class Pokemon {
 	    Thread.sleep(1000);
 	}
 	if (x.equals("toxic") && (toxic == 0)) {
-	    if (_type.equals("poison") || _type2.equals("poison") || _type.equals("metal") || _type2.equals("metal")){
-		System.out.println("Posion does not affect this Pokemon");
+	    if (_type.equals("poison") || _type2.equals("poison")){
+		System.out.println("It doesn't affect " + name + "...");
 	    }
 	    else{
 		toxic = 1;
@@ -254,8 +254,8 @@ public abstract class Pokemon {
 	}
 	counter -= 1;
 	if (counter < 3){
-	    for (;counter > 0; counter--){
-		allMoves[counter] = moveSet[counter];
+	    for (;counter >= 0; counter--){
+		moveSet[counter] = allMoves[counter];
 	    }
 	}
         else{
@@ -749,5 +749,13 @@ public abstract class Pokemon {
 	}
 	//returns 1 if no type advantage
 	return 1;
+    }
+
+    public static void main(String[] args) {
+	Pokemon x = new Bulbasaur(12);
+	System.out.println(x.moveSet[0]);
+	System.out.println(x.moveSet[1]);
+	System.out.println(x.moveSet[2]);
+	System.out.println(x.moveSet[3]);
     }
 }
