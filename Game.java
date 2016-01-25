@@ -33,15 +33,14 @@ public class Game {
 	else if (inputI == 3) {
 	    x = new Squirtle(3);
 	}
-	Pokemon[] starter = {x,new Squirtle(5)};
+	Pokemon[] starter = {x};
 	a = new Trainer(inputS, starter);
 	Thread.sleep(1000);
         System.out.println("You now have a " + x.getName() + " that is level 3!");
 	Thread.sleep(1000);
 	System.out.println("You're on your way to becoming the Pokemon league champion!");
-	
-	Pokemon[] brockPoke = {new Bulbasaur(5), new Squirtle(5), new Charmander(5)};
-	Pokemon[] pewterPoke = {new Bulbasaur(5), new Squirtle(5), new Charmander(5)};
+	Pokemon[] brockPoke = {new Bulbasaur(3), new Squirtle(3), new Charmander(3)};
+	Pokemon[] pewterPoke = {new Bulbasaur(3), new Squirtle(3), new Charmander(3)};
 	Trainer brock = new Trainer("Brock", brockPoke);
 	City pewter = new City("Pewter City",a, brock, pewterPoke);
 
