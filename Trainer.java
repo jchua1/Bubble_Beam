@@ -175,17 +175,24 @@ public class Trainer {
 		maxMoves += 1;
 	    }
 	}
+	int maxEnemyMoves = 0;
+	for (String i: x.moveSet){
+	    if (!i.equals("")){
+		maxEnemyMoves += 1;
+	    }
+	}
         while (getCurrent().getHp() != 0 && x.getHp() != 0) {
             move = 0;
-            while ((!checkRange(move,1,maxMoves) && !checkRange(move,5,7)) || (move == 7 && !(y.substring(0,1).equals("A"))) || (move == 6 && pokeballs == 0)) {
+            while ((!checkRange(move,1,maxMoves) && !checkRange(move,5,7)) || (move == 7 && !(y.substring(0,1).equals("A"))) || (move == 6 && pokeballs == 0) || (input2 == party.size()+1)) {
+		input2 = 0;
                 System.out.println("What will " + getCurrent() + " do?");
-                System.out.println("\t1." + getCurrent().moveSet[0]);
-                System.out.println("\t2." + getCurrent().moveSet[1]);
-                System.out.println("\t3." + getCurrent().moveSet[2]);
-                System.out.println("\t4." + getCurrent().moveSet[3]);
-		System.out.println("\t5.Switch Pokemon");
-		System.out.println("\t6.Catch");
-		System.out.println("\t7.Run");
+                System.out.println("\n\t1. " + getCurrent().moveSet[0]);
+                System.out.println("\n\t2. " + getCurrent().moveSet[1]);
+                System.out.println("\n\t3. " + getCurrent().moveSet[2]);
+                System.out.println("\n\t4. " + getCurrent().moveSet[3]);
+		System.out.println("\n\t5. Switch Pokemon");
+		System.out.println("\n\t6. Catch");
+		System.out.println("\n\t7. Run");
                 move = Keyboard.readInt();
                 if (!checkRange(move,1,maxMoves) && !checkRange(move,5,7)) {
 		    Thread.sleep(1000);
@@ -195,14 +202,20 @@ public class Trainer {
 		    System.out.println("You don't have any Poke Balls!");
 		}
 		else if (move == 5) {
-		    while (!checkRange(input2,1,party.size()) || party.get(input2-1).getHp() == 0 || input2-1 == current) {
+		    while (!checkRange(input2,1,party.size()+1) || party.get(input2-1).getHp() == 0 || input2-1 == current) {
 			System.out.println("Choose a Pokemon.");
+			int max = 0;
 			for (int i = 0; i < party.size(); i++) {
-			    System.out.println("\t" + (i+1) + ". " +  party.get(i) + " HP: " + party.get(i).getHp());
+			    System.out.println("\n\t" + (i+1) + ". " +  party.get(i) + " HP: " + party.get(i).getHp());
+			    max = i+2;
 			}
+			System.out.println("\n\t" + max + ". Back");
 			input2 = Keyboard.readInt();
-			if (!checkRange(input2,1,party.size())) {
+			if (!checkRange(input2,1,party.size()+1)) {
 			    System.out.println("Invalid choice!");
+			}
+			else if (input2 == party.size()+1) {
+			    break;
 			}
 			else if (party.get(input2-1).getHp() == 0) {
 			    System.out.println(party.get(input-1) + " has no energy left to battle!");
@@ -255,9 +268,10 @@ public class Trainer {
 		    if (x.checkDeath()) {
 			Thread.sleep(1000);
 			System.out.println(x + " fainted!");
+			getCurrent().levelUp((int)Math.pow(x.getLevel(),(3/2)));
 			return;
 		    }
-		    enemyMove = (int)(Math.random()*4 + 1);
+		    enemyMove = (int)(Math.random()*maxEnemyMoves + 1);
 		    x.attack(enemyMove,getCurrent());
 		    if (getCurrent().checkDeath()) {
 			Thread.sleep(1000);
@@ -272,7 +286,7 @@ public class Trainer {
 		    }
 		}
 		else{
-		    enemyMove = (int)(Math.random()*4 + 1);
+		    enemyMove = (int)(Math.random()*maxEnemyMoves + 1);
 		    x.attack(enemyMove,getCurrent());
 		    if (getCurrent().checkDeath()) {
 			Thread.sleep(1000);
@@ -336,23 +350,21 @@ public class Trainer {
 
     public static void main(String[] args) throws InterruptedException {
 	Pokemon[] a = new Pokemon[1];
+	Pokemon[] b = new Pokemon[1];
 	Pokemon bulbasaur = new Bulbasaur(16);
-	a[0] = bulbasaur;
 	Pokemon bulbasaur2 = new Bulbasaur(15);
 	Pokemon bulbasaur3 = new Bulbasaur(36);
+	a[0] = bulbasaur3;
+	b[0] = bulbasaur;
 	Pokemon squirtle = new Squirtle(3);
 	Pokemon charmander = new Charmander(3);
 	Pokemon bulbasaur4 = new Bulbasaur(3);
 	Trainer x = new Trainer("Ash",a);
-        Trainer y = new Trainer("Bob",a);
+        Trainer y = new Trainer("Bob",b);
 	y.party.add(charmander);
 	y.party.add(bulbasaur4);
 	x.party.add(bulbasaur2);
-	x.party.add(bulbasaur3);
-	x.party.add(bulbasaur4);
-	x.party.add(bulbasaur);
-	x.party.add(bulbasaur);
-	squirtle.setHp(1);
+	x.party.add(squirtle);
 	x.battle(y);
 	x.printParty();
 	x.printStorage();
