@@ -33,7 +33,7 @@ public class Game {
 	else if (inputI == 3) {
 	    x = new Squirtle(3);
 	}
-	Pokemon[] starter = {x,new Charmander(5),new Charmander(5),new Charmander(5),new Charmander(5),new Charmander(5)};
+	Pokemon[] starter = {x};
 	a = new Trainer(inputS, starter);
 	Thread.sleep(1000);
         System.out.println("You now have a level 3 " + x.getName() + "!");

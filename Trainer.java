@@ -106,10 +106,10 @@ public class Trainer {
 	    for (Pokemon a: party){
 		a.updateStats();
 		a.heal();
-		System.out.println("Sorry for the wait! Your Pokemon are all healed up! :)\n"
-				   + "---------------------------------------------");
-		Thread.sleep(1000);
 	    }
+	    System.out.println("Sorry for the wait! Your Pokemon are all healed up! :)\n"
+			      + "---------------------------------------------");
+	    Thread.sleep(1000);
     	}
     	else if (storage.size() == 0){
 	    System.out.println("Sorry! You have no Pokemon in your storage!\n"
