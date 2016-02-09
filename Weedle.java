@@ -75,7 +75,7 @@ public class Weedle extends Pokemon {
 
     public void moves(int pick, Pokemon enemy){
 	String move = moveSet[pick - 1];
-	if (move.equals("Poision Sting")){
+	if (move.equals("Poison Sting")){
 	    special = true;
 	    setType("poison");
 	    power = 15;
