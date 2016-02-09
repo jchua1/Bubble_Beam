@@ -269,6 +269,7 @@ public class Trainer {
 			Thread.sleep(1000);
 			System.out.println(x + " fainted!");
 			getCurrent().levelUp((int)Math.pow(x.getLevel(),(3/2)));
+			System.out.println(getCurrent() + " got " + (int)Math.pow(x.getLevel(),(3/2)) + " xp!");
 			return;
 		    }
 		    enemyMove = (int)(Math.random()*maxEnemyMoves + 1);
@@ -303,6 +304,8 @@ public class Trainer {
 		    if (x.checkDeath()) {
 			Thread.sleep(1000);
 			System.out.println(x + " fainted!");
+			getCurrent().levelUp((int)Math.pow(x.getLevel(),(3/2)));
+			System.out.println(getCurrent() + " got " + (int)Math.pow(x.getLevel(),(3/2)) + " xp!");
 			return;
 		    }
 		}
